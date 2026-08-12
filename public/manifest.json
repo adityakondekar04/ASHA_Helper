@@ -1,0 +1,17 @@
+{
+  "name": "ASHA Village Health Portal",
+  "short_name": "ASHA Portal",
+  "description": "Offline-first health record system for ASHA workers in rural India",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b3d2e",
+  "theme_color": "#0b3d2e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
