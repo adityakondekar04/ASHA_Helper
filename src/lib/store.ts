@@ -84,9 +84,23 @@ export interface SurveyRecord {
   updatedAt: number;
 }
 
-export type Record_ = PregnancyRecord | ChildRecord | TbRecord | SurveyRecord;
+export interface IncentiveLogRecord {
+  id: string;
+  kind: "incentiveLog";
+  date: string;
+  householdsVisited: string;
+  activities: Record<string, number>;
+  totalAmount: number;
+  notes?: string;
+  updatedAt: number;
+}
+
+export type Record_ = PregnancyRecord | ChildRecord | TbRecord | SurveyRecord | IncentiveLogRecord;
 
 const KEY = "asha.records.v1";
+const PAYMENTS_KEY = "asha.incentive_payments.v1";
+
+export type IncentivePaymentMap = Record<string, Record<string, boolean>>;
 
 export function loadRecords(): Record_[] {
   if (typeof window === "undefined") return [];
@@ -112,6 +126,11 @@ export function saveRecord(record: Record_) {
   persist(all);
 }
 
+export function deleteRecord(id: string) {
+  const all = loadRecords().filter((r) => r.id !== id);
+  persist(all);
+}
+
 export function getRecord(id: string): Record_ | undefined {
   return loadRecords().find((r) => r.id === id);
 }
@@ -134,6 +153,45 @@ export function useRecords() {
     };
   }, []);
   return records;
+}
+
+export function loadIncentivePayments(): IncentivePaymentMap {
+  if (typeof window === "undefined") return {};
+  try {
+    const raw = localStorage.getItem(PAYMENTS_KEY);
+    return raw ? (JSON.parse(raw) as IncentivePaymentMap) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveIncentivePayment(monthKey: string, activityCode: string, received: boolean) {
+  const current = loadIncentivePayments();
+  const monthData = current[monthKey] || {};
+  const updated = {
+    ...current,
+    [monthKey]: {
+      ...monthData,
+      [activityCode]: received,
+    },
+  };
+  localStorage.setItem(PAYMENTS_KEY, JSON.stringify(updated));
+  window.dispatchEvent(new Event("asha:payments"));
+}
+
+export function useIncentivePayments() {
+  const [payments, setPayments] = useState<IncentivePaymentMap>({});
+  useEffect(() => {
+    const sync = () => setPayments(loadIncentivePayments());
+    sync();
+    window.addEventListener("asha:payments", sync);
+    window.addEventListener("storage", sync);
+    return () => {
+      window.removeEventListener("asha:payments", sync);
+      window.removeEventListener("storage", sync);
+    };
+  }, []);
+  return payments;
 }
 
 /**

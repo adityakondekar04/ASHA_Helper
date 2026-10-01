@@ -147,12 +147,110 @@ const DICT: Dict = {
   larvalFound: ["अळ्या आढळल्या?", "लार्वा मिला?", "Larvae found?"],
   bloodSample: ["रक्त नमुना घेतला?", "रक्त नमूना लिया?", "Blood sample collected?"],
   notesField: ["इतर नोंद", "अन्य टिप्पणी", "Other notes"],
+
+  // Incentive Tracker
+  incentiveTrackerTitle: ["मानधन नोंदणी व हिशोब", "मानदेय रिकॉर्ड व हिसाब", "Incentive Tracker"],
+  incentiveTrackerSub: ["दैनंदिन कामाची नोंद व मानधन", "दैनिक कार्य रिकॉर्ड व मानदेय", "Daily work log & incentive calculation"],
+  tabDailyLog: ["आजची नोंद", "आज का रिकॉर्ड", "Daily Log"],
+  tabMonthlySummary: ["महिन्याचा हिशोब", "महीने का हिसाब", "Monthly Summary"],
+  tabHistory: ["महिनावारी आलेख", "मासिक चार्ट", "Monthly History"],
+  logDate: ["नोंद तारीख", "रिकॉर्ड तिथि", "Log date"],
+  householdsVisitedCount: ["आज भेट दिलेली घरे", "आज भेंट किए गए घर", "Households visited today"],
+  activitiesChecklist: ["आज पूर्ण केलेली कामे", "आज पूरे किए गए काम", "Activities completed today"],
+  todayExpected: ["आजचे अपेक्षित मानधन", "आज का संभावित मानदेय", "Today's expected incentive"],
+  monthExpectedTotal: ["महिन्याचे अपेक्षित मानधन", "महीने का संभावित मानदेय", "Month expected incentive"],
+  receivedIncentive: ["मिळालेले मानधन", "मिला हुआ मानदेय", "Received incentive"],
+  pendingIncentive: ["बाकी मानधन", "बाकी मानदेय", "Pending incentive"],
+  paymentReceived: ["पैसे मिळाले?", "पैसे मिले?", "Payment received?"],
+  receivedShort: ["मिळाले", "मिले", "Received"],
+  pendingShort: ["बाकी", "बाकी", "Pending"],
+  logSaved: ["मानधन नोंद सेव्ह झाली!", "मानदेय रिकॉर्ड सेव हो गया!", "Incentive log saved!"],
+  recentDailyLogs: ["अलीकडील दैनंदिन नोंदी", "हाल की दैनिक प्रविष्टियाँ", "Recent daily activity logs"],
+  noLogsFound: ["अजून कोणतीही नोंद नाही. आजची कामे नोंदवा!", "अभी कोई प्रविष्टि नहीं। आज के काम दर्ज करें!", "No daily logs recorded yet. Add today's activities!"],
+  monthByMonthTitle: ["महिनावारी मानधन अहवाल", "मासिक मानदेय रिपोर्ट", "Month-by-month incentive report"],
+  deleteLogConfirm: ["ही नोंद हटवायची आहे का?", "क्या यह प्रविष्टि हटानी है?", "Delete this log?"],
+  totalEntries: ["एकूण नोंदी", "कुल प्रविष्टियाँ", "Total log entries"],
+  selectMonth: ["महिना निवडा", "महीना चुनें", "Select Month"],
+  features: ["वैशिष्ट्ये", "सुविधाएँ", "Features"],
+
+  // Landing Page & Navigation
+  landingBadge: [
+    "महाराष्ट्र आशा सेविकांसाठी डिजिटल साथी • 100% ऑफलाइन कार्यक्षम",
+    "महाराष्ट्र आशा कार्यकर्ताओं के लिए डिजिटल साथी • 100% ऑफ़लाइन सक्षम",
+    "Digital Companion for Maharashtra ASHA Workers • 100% Offline-Ready",
+  ],
+  landingHeadline: [
+    "गावातील प्रत्येक मातेचे व बालकाचे आरोग्य आता बोटांच्या टोकावर",
+    "गाँव की हर माता और बच्चे का स्वास्थ्य अब उँगलियों पर",
+    "Frontline Maternal & Child Health Care at Your Fingertips",
+  ],
+  landingSub: [
+    "आरोग्य तपासणी, लसीकरण, टीबी पाठपुरावा आणि दरमहा मानधनाचा हिशोब — सर्व काही तुमच्या स्वतःच्या फोनवर, विना इंटरनेट आणि संपूर्ण सुरक्षित.",
+    "स्वास्थ्य जाँच, टीकाकरण, टीबी फ़ॉलोअप और मासिक मानदेय का हिसाब — सब कुछ आपके अपने फ़ोन में, बिना इंटरनेट और पूरी सुरक्षा के साथ।",
+    "Maternal checkups, child immunization tracking, TB care, and monthly incentive calculations — all on your own phone, zero internet required.",
+  ],
+  openDailyDiary: ["दैनिक वही उघडा", "दैनिक डायरी खोलें", "Open Daily Diary"],
+  loginBtn: ["लॉगिन करा", "लॉगिन करें", "Sign In / Login"],
+  signupBtn: ["नवीन नोंदणी करा", "नया पंजीकरण करें", "Register as ASHA"],
+  viewFeatures: ["वैशिष्ट्ये पहा", "सुविधाएँ देखें", "Explore Features"],
+  dailyWorkflow: ["दैनंदिन कार्यपद्धती", "दैनिक कार्यप्रणाली", "Daily Field Workflow"],
+  whyTrustUs: ["आशा सेविकांचा विश्वास का?", "आशा कार्यकर्ताओं का भरोसा क्यों?", "Why ASHA Workers Trust Us"],
+  pwaTitle: ["मोबाईलवर ॲप कसे सुरू करावे?", "मोबाइल पर ऐप कैसे शुरू करें?", "How to Add to Phone Home Screen"],
+  guestAccess: ["खात्याशिवाय थेट डायरी वापरा", "बिना खाते के सीधे डायरी इस्तेमाल करें", "Continue as Guest without Login"],
+  statsMothersTracked: ["गरोदर मातांची काळजी", "गर्भवती माताओं की देखभाल", "Mothers Cared For"],
+  statsVaccineCoverage: ["लसीकरण वेळेवर पूर्ण", "टीकाकरण समय पर पूरा", "Immunization Timeliness"],
+  statsZeroCost: ["शून्य इंटरनेट खर्च", "शून्य इंटरनेट ख़र्च", "Zero Internet Cost"],
+  statsDistricts: ["महाराष्ट्रातील जिल्हे", "महाराष्ट्र के ज़िले", "Districts Covered"],
+
+  // Login & Sign Up
+  loginHeading: ["आपल्या खात्यात प्रवेश करा", "अपने खाते में प्रवेश करें", "Welcome Back to ASHA Helper"],
+  loginSubtitle: ["आपला मोबाईल नंबर व पासवर्ड किंवा ओटीपी टाकून लॉगिन करा", "अपना मोबाइल नंबर और पासवर्ड या ओटीपी दर्ज करें", "Enter your mobile number and password or OTP to continue"],
+  signupHeading: ["नवीन आशा सेविका नोंदणी", "नया आशा कार्यकर्ता पंजीकरण", "New ASHA Worker Registration"],
+  signupSubtitle: ["आपले नाव, गाव व उपकेंद्राची माहिती भरून आपले खाते सुरू करा", "अपना नाम, गाँव और उपकेंद्र की जानकारी भरकर खाता शुरू करें", "Fill in your details to create your village health diary account"],
+  mobileNumber: ["मोबाईल नंबर", "मोबाइल नंबर", "Mobile Number"],
+  password: ["पासवर्ड / पिन", "पासवर्ड / पिन", "Password / PIN"],
+  enterMobile: ["१० अंकी मोबाईल नंबर टाका", "10 अंकों का मोबाइल नंबर डालें", "Enter 10-digit mobile number"],
+  enterPassword: ["४ किंवा ६ अंकी पिन किंवा पासवर्ड", "4 या 6 अंकों का पिन या पासवर्ड", "Enter PIN or password"],
+  enterOtp: ["ओटीपी (SMS कोड) टाका", "ओटीपी (SMS कोड) डालें", "Enter OTP code"],
+  loginWithPassword: ["पासवर्डने लॉगिन", "पासवर्ड से लॉगिन", "Login with Password"],
+  loginWithOtp: ["ओटीपीने लॉगिन (SMS)", "ओटीपी से लॉगिन (SMS)", "Login with OTP"],
+  sendOtp: ["ओटीपी पाठवा", "ओटीपी भेजें", "Send OTP"],
+  rememberMe: ["माझे खाते फोनमध्ये लक्षात ठेवा", "मेरा खाता फ़ोन में याद रखें", "Remember me on this phone"],
+  forgotPin: ["पिन विसरलात का?", "पिन भूल गए?", "Forgot PIN?"],
+  demoLoginAsha: ["सुनिता पाटील (आशा सेविका) डेमो लॉगिन", "सुनिता पाटील (आशा कार्यकर्ता) डेमो लॉगिन", "Demo Login: Sunita Patil (ASHA)"],
+  demoLoginFacilitator: ["रेखा कांबळे (गटप्रवर्तक) डेमो लॉगिन", "रेखा कांबळे (सुपरवाइज़र) डेमो लॉगिन", "Demo Login: Rekha Kamble (Facilitator)"],
+  alreadyHaveAccount: ["आधीच खाते आहे का?", "क्या पहले से खाता है?", "Already have an account?"],
+  dontHaveAccount: ["नवीन आहात का?", "क्या नए हैं?", "New here?"],
+  registerNow: ["येथे नोंदणी करा", "यहाँ पंजीकरण करें", "Register here"],
+  loginNow: ["येथे लॉगिन करा", "यहाँ लॉगिन करें", "Login here"],
+  fullName: ["पूर्ण नाव (उदा. सुनिता रामचंद्र पाटील)", "पूरा नाम (उदा. सुनिता रामचंद्र पाटील)", "Full Name"],
+  selectRole: ["तुमचे पद / भूमिका निवडा", "अपना पद / भूमिका चुनें", "Select Role"],
+  roleAsha: ["आशा सेविका (ASHA Worker)", "आशा कार्यकर्ता (ASHA Worker)", "ASHA Worker"],
+  roleFacilitator: ["आशा गटप्रवर्तक (ASHA Facilitator)", "आशा फैसिलिटेटर (ASHA Facilitator)", "ASHA Facilitator"],
+  roleAnm: ["ए.एन.एम. / बहुउद्देशीय आरोग्य कार्यकर्ता", "ए.एन.एम. / स्वास्थ्य कार्यकर्ता", "ANM / Health Worker"],
+  roleMedicalOfficer: ["वैद्यकीय अधिकारी (Medical Officer)", "चिकित्सा अधिकारी (Medical Officer)", "Medical Officer"],
+  districtName: ["जिल्हा निवडा", "ज़िला चुनें", "Select District"],
+  talukaName: ["तालुका / ब्लॉक", "तालुका / ब्लॉक", "Taluka / Block"],
+  phcName: ["प्राथमिक आरोग्य केंद्र (PHC)", "प्राथमिक स्वास्थ्य केंद्र (PHC)", "Primary Health Centre (PHC)"],
+  subCenterName: ["उपकेंद्र (Sub-Center)", "उपकेंद्र (Sub-Center)", "Sub-Center"],
+  villageName: ["गाव / पाडा / वस्ती", "गाँव / टोला", "Village / Hamlet"],
+  ashaIdField: ["आशा ओळख क्रमांक (ऐच्छिक)", "आशा आईडी नंबर (वैकल्पिक)", "ASHA ID Number (Optional)"],
+  agreePrivacy: ["माझा डेटा फक्त माझ्या फोनवर सुरक्षित राहील हे मला मान्य आहे.", "मेरा डेटा केवल मेरे फ़ोन में सुरक्षित रहेगा यह मुझे स्वीकार है।", "I understand that my data is saved privately on my phone."],
+  createAccountBtn: ["खाते तयार करा व डायरी सुरू करा", "खाता बनाएँ और डायरी शुरू करें", "Create Account & Launch Diary"],
+  signupSuccess: ["नोंदणी यशस्वी झाली!", "पंजीकरण सफल रहा!", "Registration successful!"],
+  welcomeUser: ["नमस्ते", "नमस्ते", "Welcome"],
+  logoutBtn: ["लॉगआउट", "लॉगआउट", "Sign Out"],
+  offlineWarningText: ["ऑफलाइन मोड चालू: तुमचा डेटा सुरक्षितपणे फोनच्या मेमरीत साठवला जाईल.", "ऑफ़लाइन मोड सक्रिय: आपका डेटा सुरक्षित रूप से फ़ोन में रहेगा।", "Offline mode active: Data will be safely stored on this device."],
 };
 
 const INDEX: Record<Lang, 0 | 1 | 2> = { mr: 0, hi: 1, en: 2 };
 
-type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: keyof typeof DICT) => string };
-const LangContext = createContext<Ctx>({ lang: "mr", setLang: () => {}, t: (k) => DICT[k][0] });
+type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: (k: string) => string };
+const LangContext = createContext<Ctx>({
+  lang: "mr",
+  setLang: () => {},
+  t: (k) => ((DICT as Record<string, [string, string, string]>)[k]?.[0] ?? k),
+});
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("mr");
@@ -167,7 +265,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("asha.lang", l);
   }, []);
 
-  const t = useCallback((k: keyof typeof DICT) => DICT[k][INDEX[lang]], [lang]);
+  const t = useCallback(
+    (k: string) => {
+      const entry = (DICT as Record<string, [string, string, string]>)[k];
+      if (!entry) return k;
+      return entry[INDEX[lang]] ?? entry[0] ?? k;
+    },
+    [lang]
+  );
 
   const value = useMemo(() => ({ lang, setLang, t }), [lang, setLang, t]);
   return <LangContext.Provider value={value}>{children}</LangContext.Provider>;

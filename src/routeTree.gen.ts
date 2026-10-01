@@ -10,25 +10,44 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as InfoIndexRouteImport } from './routes/info.index'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as IncentiveRouteImport } from './routes/incentive'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as SignupRouteImport } from './routes/signup'
 import { Route as EntryIndexRouteImport } from './routes/entry.index'
-import { Route as InfoSchemeRouteImport } from './routes/info.scheme'
-import { Route as InfoProgramsRouteImport } from './routes/info.programs'
-import { Route as InfoIncentivesRouteImport } from './routes/info.incentives'
-import { Route as InfoFaqRouteImport } from './routes/info.faq'
-import { Route as EntryTbRouteImport } from './routes/entry.tb'
-import { Route as EntrySurveyRouteImport } from './routes/entry.survey'
-import { Route as EntryPregnancyRouteImport } from './routes/entry.pregnancy'
 import { Route as EntryChildRouteImport } from './routes/entry.child'
+import { Route as EntryPregnancyRouteImport } from './routes/entry.pregnancy'
+import { Route as EntrySurveyRouteImport } from './routes/entry.survey'
+import { Route as EntryTbRouteImport } from './routes/entry.tb'
+import { Route as InfoIndexRouteImport } from './routes/info.index'
+import { Route as InfoFaqRouteImport } from './routes/info.faq'
+import { Route as InfoIncentivesRouteImport } from './routes/info.incentives'
+import { Route as InfoProgramsRouteImport } from './routes/info.programs'
+import { Route as InfoSchemeRouteImport } from './routes/info.scheme'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InfoIndexRoute = InfoIndexRouteImport.update({
-  id: '/info/',
-  path: '/info/',
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IncentiveRoute = IncentiveRouteImport.update({
+  id: '/incentive',
+  path: '/incentive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SignupRoute = SignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntryIndexRoute = EntryIndexRouteImport.update({
@@ -36,34 +55,9 @@ const EntryIndexRoute = EntryIndexRouteImport.update({
   path: '/entry/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InfoSchemeRoute = InfoSchemeRouteImport.update({
-  id: '/info/scheme',
-  path: '/info/scheme',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InfoProgramsRoute = InfoProgramsRouteImport.update({
-  id: '/info/programs',
-  path: '/info/programs',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InfoIncentivesRoute = InfoIncentivesRouteImport.update({
-  id: '/info/incentives',
-  path: '/info/incentives',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InfoFaqRoute = InfoFaqRouteImport.update({
-  id: '/info/faq',
-  path: '/info/faq',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EntryTbRoute = EntryTbRouteImport.update({
-  id: '/entry/tb',
-  path: '/entry/tb',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EntrySurveyRoute = EntrySurveyRouteImport.update({
-  id: '/entry/survey',
-  path: '/entry/survey',
+const EntryChildRoute = EntryChildRouteImport.update({
+  id: '/entry/child',
+  path: '/entry/child',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EntryPregnancyRoute = EntryPregnancyRouteImport.update({
@@ -71,14 +65,48 @@ const EntryPregnancyRoute = EntryPregnancyRouteImport.update({
   path: '/entry/pregnancy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const EntryChildRoute = EntryChildRouteImport.update({
-  id: '/entry/child',
-  path: '/entry/child',
+const EntrySurveyRoute = EntrySurveyRouteImport.update({
+  id: '/entry/survey',
+  path: '/entry/survey',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntryTbRoute = EntryTbRouteImport.update({
+  id: '/entry/tb',
+  path: '/entry/tb',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoIndexRoute = InfoIndexRouteImport.update({
+  id: '/info/',
+  path: '/info/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoFaqRoute = InfoFaqRouteImport.update({
+  id: '/info/faq',
+  path: '/info/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoIncentivesRoute = InfoIncentivesRouteImport.update({
+  id: '/info/incentives',
+  path: '/info/incentives',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoProgramsRoute = InfoProgramsRouteImport.update({
+  id: '/info/programs',
+  path: '/info/programs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InfoSchemeRoute = InfoSchemeRouteImport.update({
+  id: '/info/scheme',
+  path: '/info/scheme',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/incentive': typeof IncentiveRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/entry/child': typeof EntryChildRoute
   '/entry/pregnancy': typeof EntryPregnancyRoute
   '/entry/survey': typeof EntrySurveyRoute
@@ -92,6 +120,10 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/incentive': typeof IncentiveRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/entry/child': typeof EntryChildRoute
   '/entry/pregnancy': typeof EntryPregnancyRoute
   '/entry/survey': typeof EntrySurveyRoute
@@ -106,6 +138,10 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dashboard': typeof DashboardRoute
+  '/incentive': typeof IncentiveRoute
+  '/login': typeof LoginRoute
+  '/signup': typeof SignupRoute
   '/entry/child': typeof EntryChildRoute
   '/entry/pregnancy': typeof EntryPregnancyRoute
   '/entry/survey': typeof EntrySurveyRoute
@@ -121,6 +157,10 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/dashboard'
+    | '/incentive'
+    | '/login'
+    | '/signup'
     | '/entry/child'
     | '/entry/pregnancy'
     | '/entry/survey'
@@ -134,6 +174,10 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/dashboard'
+    | '/incentive'
+    | '/login'
+    | '/signup'
     | '/entry/child'
     | '/entry/pregnancy'
     | '/entry/survey'
@@ -147,6 +191,10 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/dashboard'
+    | '/incentive'
+    | '/login'
+    | '/signup'
     | '/entry/child'
     | '/entry/pregnancy'
     | '/entry/survey'
@@ -161,6 +209,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DashboardRoute: typeof DashboardRoute
+  IncentiveRoute: typeof IncentiveRoute
+  LoginRoute: typeof LoginRoute
+  SignupRoute: typeof SignupRoute
   EntryChildRoute: typeof EntryChildRoute
   EntryPregnancyRoute: typeof EntryPregnancyRoute
   EntrySurveyRoute: typeof EntrySurveyRoute
@@ -182,11 +234,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/info/': {
-      id: '/info/'
-      path: '/info'
-      fullPath: '/info/'
-      preLoaderRoute: typeof InfoIndexRouteImport
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/incentive': {
+      id: '/incentive'
+      path: '/incentive'
+      fullPath: '/incentive'
+      preLoaderRoute: typeof IncentiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signup': {
+      id: '/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof SignupRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entry/': {
@@ -196,46 +269,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntryIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/info/scheme': {
-      id: '/info/scheme'
-      path: '/info/scheme'
-      fullPath: '/info/scheme'
-      preLoaderRoute: typeof InfoSchemeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/info/programs': {
-      id: '/info/programs'
-      path: '/info/programs'
-      fullPath: '/info/programs'
-      preLoaderRoute: typeof InfoProgramsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/info/incentives': {
-      id: '/info/incentives'
-      path: '/info/incentives'
-      fullPath: '/info/incentives'
-      preLoaderRoute: typeof InfoIncentivesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/info/faq': {
-      id: '/info/faq'
-      path: '/info/faq'
-      fullPath: '/info/faq'
-      preLoaderRoute: typeof InfoFaqRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/entry/tb': {
-      id: '/entry/tb'
-      path: '/entry/tb'
-      fullPath: '/entry/tb'
-      preLoaderRoute: typeof EntryTbRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/entry/survey': {
-      id: '/entry/survey'
-      path: '/entry/survey'
-      fullPath: '/entry/survey'
-      preLoaderRoute: typeof EntrySurveyRouteImport
+    '/entry/child': {
+      id: '/entry/child'
+      path: '/entry/child'
+      fullPath: '/entry/child'
+      preLoaderRoute: typeof EntryChildRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/entry/pregnancy': {
@@ -245,11 +283,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EntryPregnancyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/entry/child': {
-      id: '/entry/child'
-      path: '/entry/child'
-      fullPath: '/entry/child'
-      preLoaderRoute: typeof EntryChildRouteImport
+    '/entry/survey': {
+      id: '/entry/survey'
+      path: '/entry/survey'
+      fullPath: '/entry/survey'
+      preLoaderRoute: typeof EntrySurveyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entry/tb': {
+      id: '/entry/tb'
+      path: '/entry/tb'
+      fullPath: '/entry/tb'
+      preLoaderRoute: typeof EntryTbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/info/': {
+      id: '/info/'
+      path: '/info'
+      fullPath: '/info/'
+      preLoaderRoute: typeof InfoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/info/faq': {
+      id: '/info/faq'
+      path: '/info/faq'
+      fullPath: '/info/faq'
+      preLoaderRoute: typeof InfoFaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/info/incentives': {
+      id: '/info/incentives'
+      path: '/info/incentives'
+      fullPath: '/info/incentives'
+      preLoaderRoute: typeof InfoIncentivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/info/programs': {
+      id: '/info/programs'
+      path: '/info/programs'
+      fullPath: '/info/programs'
+      preLoaderRoute: typeof InfoProgramsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/info/scheme': {
+      id: '/info/scheme'
+      path: '/info/scheme'
+      fullPath: '/info/scheme'
+      preLoaderRoute: typeof InfoSchemeRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -257,6 +337,10 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DashboardRoute: DashboardRoute,
+  IncentiveRoute: IncentiveRoute,
+  LoginRoute: LoginRoute,
+  SignupRoute: SignupRoute,
   EntryChildRoute: EntryChildRoute,
   EntryPregnancyRoute: EntryPregnancyRoute,
   EntrySurveyRoute: EntrySurveyRoute,

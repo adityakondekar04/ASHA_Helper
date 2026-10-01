@@ -1,0 +1,408 @@
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useState } from "react";
+import {
+  Building2,
+  CheckCircle2,
+  FileBadge,
+  Home,
+  Lock,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Smartphone,
+  User,
+  UserCheck,
+  UserPlus,
+} from "lucide-react";
+import { LanguageSwitch } from "@/components/AppShell";
+import { Card } from "@/components/ui/form-kit";
+import { useT } from "@/lib/i18n";
+import { useAuth, type UserRole } from "@/lib/auth";
+
+export const Route = createFileRoute("/signup")({
+  head: () => ({
+    meta: [
+      { title: "नवीन नोंदणी — आशा सहाय्यक (ASHA Registration)" },
+      {
+        name: "description",
+        content:
+          "Register as an ASHA worker, facilitator, or health worker in Maharashtra. Create your offline-first daily diary account.",
+      },
+    ],
+  }),
+  component: SignupPage,
+});
+
+const MAHARASHTRA_DISTRICTS = [
+  "पुणे (Pune)",
+  "सातारा (Satara)",
+  "सांगली (Sangli)",
+  "कोल्हापूर (Kolhapur)",
+  "सोलापूर (Solapur)",
+  "नाशिक (Nashik)",
+  "अहमदनगर (Ahilyanagar)",
+  "छत्रपती संभाजीनगर (Chh. Sambhajinagar)",
+  "ठाणे (Thane)",
+  "पालघर (Palghar)",
+  "रायगड (Raigad)",
+  "रत्नागिरी (Ratnagiri)",
+  "नागपूर (Nagpur)",
+  "अमरावती (Amravati)",
+  "नांदेड (Nanded)",
+  "जळगाव (Jalgaon)",
+  "धुळे (Dhule)",
+];
+
+function SignupPage() {
+  const { t } = useT();
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const [role, setRole] = useState<UserRole>("asha");
+  const [fullName, setFullName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [district, setDistrict] = useState(MAHARASHTRA_DISTRICTS[1]); // सातारा default
+  const [taluka, setTaluka] = useState("कराड");
+  const [phc, setPhc] = useState("मसूर प्राथमिक आरोग्य केंद्र");
+  const [subCenter, setSubCenter] = useState("शिरोली उपकेंद्र");
+  const [village, setVillage] = useState("शिरोली");
+  const [ashaId, setAshaId] = useState("");
+  const [password, setPassword] = useState("");
+  const [agree, setAgree] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!fullName.trim()) {
+      setError("कृपया आपले पूर्ण नाव प्रविष्ट करा.");
+      return;
+    }
+    if (!phone || phone.length < 10) {
+      setError("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+      return;
+    }
+    if (!password || password.length < 4) {
+      setError("कृपया किमान ४ अंकी सुरक्षित पिन किंवा पासवर्ड तयार करा.");
+      return;
+    }
+    if (!agree) {
+      setError("कृपया नियम व अटी मान्य करा.");
+      return;
+    }
+
+    const newUser = {
+      id: "user-" + Date.now(),
+      fullName: fullName.trim(),
+      phone: phone.trim(),
+      role,
+      district: district.split(" ")[0],
+      taluka: taluka.trim() || "तालुका",
+      phc: phc.trim() || "प्राथमिक आरोग्य केंद्र",
+      subCenter: subCenter.trim() || "उपकेंद्र",
+      village: village.trim() || "गाव",
+      ashaId: ashaId.trim() || `ASHA-MH-${phone.slice(-4)}`,
+      createdAt: new Date().toISOString(),
+    };
+
+    login(newUser);
+    setSuccess(true);
+
+    setTimeout(() => {
+      navigate({ to: "/dashboard" });
+    }, 1200);
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-[17px] text-foreground flex flex-col justify-between">
+      {/* Top Header */}
+      <header className="border-b-2 border-border bg-card/90 backdrop-blur sticky top-0 z-10 px-4 py-3">
+        <div className="mx-auto flex max-w-md items-center justify-between">
+          <Link to="/" className="flex items-center gap-2.5">
+            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-xl shadow-xs">
+              🩺
+            </span>
+            <div>
+              <span className="block text-lg font-black leading-tight tracking-tight">
+                आशा सहाय्यक
+              </span>
+              <span className="block text-xs font-semibold text-muted-foreground">
+                ASHA Helper
+              </span>
+            </div>
+          </Link>
+          <LanguageSwitch />
+        </div>
+      </header>
+
+      {/* Main Container */}
+      <main className="mx-auto w-full max-w-md px-4 py-6 flex-1">
+        {/* Title */}
+        <div className="mb-6 text-center">
+          <div className="mx-auto mb-3 grid size-16 place-items-center rounded-3xl bg-primary/15 text-primary">
+            <UserPlus className="size-8" />
+          </div>
+          <h1 className="text-2xl font-black text-foreground">{t("signupHeading")}</h1>
+          <p className="mt-1 text-sm text-muted-foreground font-medium">{t("signupSubtitle")}</p>
+        </div>
+
+        {success ? (
+          <Card className="text-center py-10 shadow-[0_4px_0_0_var(--color-border)]">
+            <div className="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-accent/20 text-accent">
+              <CheckCircle2 className="size-10" />
+            </div>
+            <h2 className="text-2xl font-black text-foreground">{t("signupSuccess")}</h2>
+            <p className="mt-2 text-base text-muted-foreground">
+              नमस्ते, {fullName}! आपले खाते तयार झाले आहे.
+            </p>
+            <p className="mt-1 text-sm text-primary font-bold">
+              आपल्या दैनिक वहीकडे (Dashboard) नेले जात आहे…
+            </p>
+          </Card>
+        ) : (
+          <Card className="mb-5 shadow-[0_4px_0_0_var(--color-border)]">
+            {error && (
+              <div className="mb-4 rounded-2xl bg-destructive/15 p-3 text-sm font-bold text-destructive">
+                {error}
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Role */}
+              <div>
+                <label className="mb-1.5 block text-xs font-bold text-muted-foreground uppercase tracking-wider">
+                  {t("selectRole")}
+                </label>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setRole("asha")}
+                    className={`rounded-2xl border-2 p-3 text-center transition-all ${
+                      role === "asha"
+                        ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                        : "border-border bg-card text-muted-foreground font-semibold"
+                    }`}
+                  >
+                    👩‍⚕️ {t("roleAsha")}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setRole("facilitator")}
+                    className={`rounded-2xl border-2 p-3 text-center transition-all ${
+                      role === "facilitator"
+                        ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                        : "border-border bg-card text-muted-foreground font-semibold"
+                    }`}
+                  >
+                    📋 {t("roleFacilitator")}
+                  </button>
+                </div>
+              </div>
+
+              {/* Full Name */}
+              <div>
+                <label className="mb-1 block text-sm font-bold">{t("fullName")}</label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <User className="size-5" />
+                  </span>
+                  <input
+                    type="text"
+                    required
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    placeholder="उदा. श्रीमती सुनिता रामचंद्र पाटील"
+                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                  />
+                </div>
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="mb-1 block text-sm font-bold">{t("mobileNumber")}</label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <Phone className="size-5" />
+                  </span>
+                  <input
+                    type="tel"
+                    inputMode="numeric"
+                    maxLength={10}
+                    required
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
+                    placeholder="उदा. 9876543210"
+                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                  />
+                </div>
+              </div>
+
+              {/* District & Taluka Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("districtName")}</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <MapPin className="size-5" />
+                    </span>
+                    <select
+                      value={district}
+                      onChange={(e) => setDistrict(e.target.value)}
+                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary appearance-none"
+                    >
+                      {MAHARASHTRA_DISTRICTS.map((d) => (
+                        <option key={d} value={d}>
+                          {d}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("talukaName")}</label>
+                  <input
+                    type="text"
+                    value={taluka}
+                    onChange={(e) => setTaluka(e.target.value)}
+                    placeholder="उदा. कराड"
+                    className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
+                  />
+                </div>
+              </div>
+
+              {/* PHC & Sub-Center */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("phcName")}</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <Building2 className="size-5" />
+                    </span>
+                    <input
+                      type="text"
+                      value={phc}
+                      onChange={(e) => setPhc(e.target.value)}
+                      placeholder="उदा. मसूर PHC"
+                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("subCenterName")}</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <Home className="size-5" />
+                    </span>
+                    <input
+                      type="text"
+                      value={subCenter}
+                      onChange={(e) => setSubCenter(e.target.value)}
+                      placeholder="उदा. शिरोली उपकेंद्र"
+                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Village & ASHA ID */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("villageName")}</label>
+                  <input
+                    type="text"
+                    value={village}
+                    onChange={(e) => setVillage(e.target.value)}
+                    placeholder="उदा. शिरोली"
+                    className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
+                  />
+                </div>
+
+                <div>
+                  <label className="mb-1 block text-sm font-bold">{t("ashaIdField")}</label>
+                  <div className="relative">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                      <FileBadge className="size-5" />
+                    </span>
+                    <input
+                      type="text"
+                      value={ashaId}
+                      onChange={(e) => setAshaId(e.target.value)}
+                      placeholder="उदा. ASHA-MH-0421"
+                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Password */}
+              <div>
+                <label className="mb-1 block text-sm font-bold">{t("password")}</label>
+                <div className="relative">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <Lock className="size-5" />
+                  </span>
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="किमान ४ अंकी पिन किंवा पासवर्ड"
+                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary tracking-wider"
+                  />
+                </div>
+              </div>
+
+              {/* Agreement */}
+              <label className="flex items-start gap-2.5 cursor-pointer font-medium text-xs text-muted-foreground pt-1">
+                <input
+                  type="checkbox"
+                  checked={agree}
+                  onChange={(e) => setAgree(e.target.checked)}
+                  className="mt-0.5 size-4 rounded-md accent-primary shrink-0"
+                />
+                <span>{t("agreePrivacy")}</span>
+              </label>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 mt-2"
+              >
+                {t("createAccountBtn")}
+              </button>
+            </form>
+          </Card>
+        )}
+
+        {/* Direct Bypass */}
+        <div className="mb-6 text-center">
+          <Link
+            to="/dashboard"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:underline"
+          >
+            <Smartphone className="size-4" />
+            {t("guestAccess")} →
+          </Link>
+        </div>
+
+        {/* Link to Login */}
+        <div className="rounded-2xl border-2 border-border bg-card p-4 text-center">
+          <p className="text-sm font-semibold text-muted-foreground">
+            {t("alreadyHaveAccount")}{" "}
+            <Link to="/login" className="font-extrabold text-primary hover:underline">
+              {t("loginNow")}
+            </Link>
+          </p>
+        </div>
+
+        {/* Privacy Note */}
+        <p className="mt-4 text-center text-xs font-semibold text-muted-foreground flex items-center justify-center gap-1.5">
+          <ShieldCheck className="size-4 text-accent" />
+          {t("privacyNote")}
+        </p>
+      </main>
+    </div>
+  );
+}

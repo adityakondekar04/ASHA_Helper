@@ -75,33 +75,50 @@ export function AppShell({
             {backTo ? (
               <Link
                 to={backTo}
-                className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground"
+                className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
                 aria-label={t("back")}
               >
                 <ArrowLeft className="size-6" />
               </Link>
             ) : (
-              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary text-2xl">
+              <Link
+                to="/"
+                className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary text-2xl shadow-xs"
+                title="मुख्य माहिती पान (Home)"
+              >
                 🩺
-              </span>
+              </Link>
             )}
             <h1 className="truncate text-xl font-extrabold">{title ?? t("appName")}</h1>
           </div>
           <LanguageSwitch />
         </div>
-        <div className="mx-auto max-w-2xl px-4 pb-3">
+        <div className="mx-auto max-w-2xl px-4 pb-3 flex items-center justify-between gap-2">
           <OfflineBadge />
+          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
+            <Link to="/dashboard" className="hover:text-primary transition-colors">
+              दैनंदिनी
+            </Link>
+            <span className="text-muted-foreground/40">•</span>
+            <Link to="/" className="hover:text-primary transition-colors">
+              मुख्य पान
+            </Link>
+            <span className="text-muted-foreground/40">•</span>
+            <Link to="/login" className="hover:text-primary transition-colors">
+              खाते
+            </Link>
+          </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-2xl px-4 pb-28 pt-4">{children}</main>
 
       {backTo && (
-        <nav className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-border bg-card px-4 py-3">
+        <nav className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-border bg-card px-4 py-3 shadow-lg">
           <div className="mx-auto flex max-w-2xl gap-3">
             <Link
-              to="/"
-              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground"
+              to={backTo === "/" ? "/dashboard" : backTo}
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground hover:bg-secondary/80 transition-colors"
             >
               <Home className="size-5" /> {t("home")}
             </Link>
