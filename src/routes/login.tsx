@@ -3,13 +3,17 @@ import { useState } from "react";
 import {
   ArrowRight,
   CheckCircle2,
+  ClipboardCheck,
+  HeartPulse,
   KeyRound,
   Lock,
   Phone,
   ShieldCheck,
   Smartphone,
   Sparkles,
+  Stethoscope,
   UserCheck,
+  Zap,
 } from "lucide-react";
 import { LanguageSwitch } from "@/components/AppShell";
 import { Card } from "@/components/ui/form-kit";
@@ -47,11 +51,11 @@ function LoginPage() {
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone || phone.length < 10) {
-      setError("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+      setError(t("enterMobile"));
       return;
     }
     if (!password) {
-      setError("कृपया आपला पिन किंवा पासवर्ड प्रविष्ट करा.");
+      setError(t("enterPassword"));
       return;
     }
 
@@ -62,7 +66,7 @@ function LoginPage() {
       // Local session login
       login({
         id: "user-" + phone,
-        fullName: role === "facilitator" ? "श्रीमती रेखा कांबळे" : "श्रीमती सुनिता पाटील",
+        fullName: role === "facilitator" ? t("test2Author") : t("test1Author"),
         phone,
         role,
         district: "सातारा",
@@ -80,7 +84,7 @@ function LoginPage() {
 
   const handleSendOtp = () => {
     if (!phone || phone.length < 10) {
-      setError("कृपया प्रथम १० अंकी मोबाईल नंबर टाका.");
+      setError(t("enterMobile"));
       return;
     }
     setError(null);
@@ -91,14 +95,14 @@ function LoginPage() {
   const handleOtpSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!otp) {
-      setError("कृपया एसएमएस वर आलेला ६ अंकी ओटीपी टाका.");
+      setError(t("enterOtp"));
       return;
     }
     setLoading(true);
     setTimeout(() => {
       login({
         id: "user-" + phone,
-        fullName: role === "facilitator" ? "श्रीमती रेखा कांबळे" : "श्रीमती सुनिता पाटील",
+        fullName: role === "facilitator" ? t("test2Author") : t("test1Author"),
         phone,
         role,
         district: "सातारा",
@@ -125,15 +129,15 @@ function LoginPage() {
       <header className="border-b-2 border-border bg-card/90 backdrop-blur sticky top-0 z-10 px-4 py-3">
         <div className="mx-auto flex max-w-md items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-xl shadow-xs">
-              🩺
+            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
+              <Stethoscope className="size-5" />
             </span>
             <div>
               <span className="block text-lg font-black leading-tight tracking-tight">
-                आशा सहाय्यक
+                {t("appName")}
               </span>
               <span className="block text-xs font-semibold text-muted-foreground">
-                ASHA Helper
+                {t("ruralHealthMission")}
               </span>
             </div>
           </Link>
@@ -161,24 +165,26 @@ function LoginPage() {
             <button
               type="button"
               onClick={() => setRole("asha")}
-              className={`rounded-2xl border-2 p-3 text-center transition-all ${
+              className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 ${
                 role === "asha"
                   ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
-                  : "border-border bg-card text-muted-foreground font-semibold"
+                  : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
               }`}
             >
-              👩‍⚕️ {t("roleAsha")}
+              <HeartPulse className="size-4 shrink-0 text-primary" />
+              <span>{t("roleAsha")}</span>
             </button>
             <button
               type="button"
               onClick={() => setRole("facilitator")}
-              className={`rounded-2xl border-2 p-3 text-center transition-all ${
+              className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 ${
                 role === "facilitator"
                   ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
-                  : "border-border bg-card text-muted-foreground font-semibold"
+                  : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
               }`}
             >
-              📋 {t("roleFacilitator")}
+              <ClipboardCheck className="size-4 shrink-0 text-accent" />
+              <span>{t("roleFacilitator")}</span>
             </button>
           </div>
         </div>
@@ -237,7 +243,7 @@ function LoginPage() {
                     maxLength={10}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                    placeholder="उदा. 9876543210"
+                    placeholder={t("enterMobile")}
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary"
                   />
                 </div>
@@ -278,9 +284,9 @@ function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5"
+                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
               >
-                {loading ? "लॉगिन होत आहे…" : t("loginBtn")}
+                {loading ? "..." : t("loginBtn")}
               </button>
             </form>
           ) : (
@@ -298,14 +304,14 @@ function LoginPage() {
                       maxLength={10}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                      placeholder="उदा. 9876543210"
+                      placeholder={t("enterMobile")}
                       className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary"
                     />
                   </div>
                   <button
                     type="button"
                     onClick={handleSendOtp}
-                    className="rounded-2xl border-2 border-primary bg-primary/10 px-4 text-sm font-bold text-primary hover:bg-primary/20 shrink-0"
+                    className="rounded-2xl border-2 border-primary bg-primary/10 px-4 text-sm font-bold text-primary hover:bg-primary/20 shrink-0 cursor-pointer"
                   >
                     {t("sendOtp")}
                   </button>
@@ -315,7 +321,7 @@ function LoginPage() {
               {otpSent && (
                 <div className="rounded-2xl bg-accent/15 p-3 text-xs font-semibold text-accent flex items-center gap-2">
                   <CheckCircle2 className="size-4 shrink-0" />
-                  <span>डेमो चाचणीसाठी तात्पुरता ओटीपी 123456 भरण्यात आला आहे.</span>
+                  <span>{t("demoOtpNotice")}</span>
                 </div>
               )}
 
@@ -340,33 +346,40 @@ function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5"
+                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
               >
-                {loading ? "पडताळणी होत आहे…" : t("loginBtn")}
+                {loading ? "..." : t("loginBtn")}
               </button>
             </form>
           )}
 
           {/* Quick Demo Logins for Instant Testing */}
           <div className="mt-5 border-t border-border pt-4">
-            <p className="mb-2 text-center text-xs font-bold uppercase tracking-wider text-muted-foreground">
-              ⚡ झटपट चाचणी (१-क्लिक डेमो लॉगिन)
+            <p className="mb-2 text-center text-xs font-bold uppercase tracking-wider text-muted-foreground flex items-center justify-center gap-1.5">
+              <Zap className="size-3.5 text-primary" />
+              <span>{t("quickDemoTitle")}</span>
             </p>
             <div className="flex flex-col gap-2">
               <button
                 type="button"
                 onClick={() => handleQuickDemo("asha")}
-                className="rounded-2xl border-2 border-accent/30 bg-accent/10 px-3 py-2.5 text-sm font-bold text-accent hover:bg-accent/20 text-left flex items-center justify-between"
+                className="rounded-2xl border-2 border-accent/30 bg-accent/10 px-3 py-2.5 text-sm font-bold text-accent hover:bg-accent/20 text-left flex items-center justify-between cursor-pointer"
               >
-                <span>👩‍⚕️ {t("demoLoginAsha")}</span>
+                <span className="flex items-center gap-1.5">
+                  <UserCheck className="size-4 shrink-0" />
+                  <span>{t("demoLoginAsha")}</span>
+                </span>
                 <ArrowRight className="size-4" />
               </button>
               <button
                 type="button"
                 onClick={() => handleQuickDemo("facilitator")}
-                className="rounded-2xl border-2 border-border bg-card px-3 py-2.5 text-sm font-bold text-muted-foreground hover:text-foreground text-left flex items-center justify-between"
+                className="rounded-2xl border-2 border-border bg-card px-3 py-2.5 text-sm font-bold text-muted-foreground hover:text-foreground text-left flex items-center justify-between cursor-pointer"
               >
-                <span>📋 {t("demoLoginFacilitator")}</span>
+                <span className="flex items-center gap-1.5">
+                  <ClipboardCheck className="size-4 shrink-0 text-primary" />
+                  <span>{t("demoLoginFacilitator")}</span>
+                </span>
                 <ArrowRight className="size-4" />
               </button>
             </div>

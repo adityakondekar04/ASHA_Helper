@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, Home, WifiOff, Wifi } from "lucide-react";
+import { ArrowLeft, Home, WifiOff, Wifi, Stethoscope } from "lucide-react";
 import { useT, type Lang } from "@/lib/i18n";
 
 const LANGS: Array<{ code: Lang; label: string }> = [
@@ -83,10 +83,10 @@ export function AppShell({
             ) : (
               <Link
                 to="/"
-                className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary text-2xl shadow-xs"
-                title="मुख्य माहिती पान (Home)"
+                className="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs hover:bg-primary/95 transition-colors"
+                title={t("navHome")}
               >
-                🩺
+                <Stethoscope className="size-6 text-primary-foreground" />
               </Link>
             )}
             <h1 className="truncate text-xl font-extrabold">{title ?? t("appName")}</h1>
@@ -97,15 +97,15 @@ export function AppShell({
           <OfflineBadge />
           <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
             <Link to="/dashboard" className="hover:text-primary transition-colors">
-              दैनंदिनी
+              {t("navDiary")}
             </Link>
             <span className="text-muted-foreground/40">•</span>
             <Link to="/" className="hover:text-primary transition-colors">
-              मुख्य पान
+              {t("navHome")}
             </Link>
             <span className="text-muted-foreground/40">•</span>
             <Link to="/login" className="hover:text-primary transition-colors">
-              खाते
+              {t("navAccount")}
             </Link>
           </div>
         </div>

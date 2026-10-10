@@ -3,13 +3,16 @@ import { useState } from "react";
 import {
   Building2,
   CheckCircle2,
+  ClipboardCheck,
   FileBadge,
+  HeartPulse,
   Home,
   Lock,
   MapPin,
   Phone,
   ShieldCheck,
   Smartphone,
+  Stethoscope,
   User,
   UserCheck,
   UserPlus,
@@ -75,19 +78,19 @@ function SignupPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim()) {
-      setError("कृपया आपले पूर्ण नाव प्रविष्ट करा.");
+      setError(t("required"));
       return;
     }
     if (!phone || phone.length < 10) {
-      setError("कृपया वैध १० अंकी मोबाईल नंबर प्रविष्ट करा.");
+      setError(t("enterMobile"));
       return;
     }
     if (!password || password.length < 4) {
-      setError("कृपया किमान ४ अंकी सुरक्षित पिन किंवा पासवर्ड तयार करा.");
+      setError(t("enterPassword"));
       return;
     }
     if (!agree) {
-      setError("कृपया नियम व अटी मान्य करा.");
+      setError("Please accept terms");
       return;
     }
 
@@ -119,15 +122,15 @@ function SignupPage() {
       <header className="border-b-2 border-border bg-card/90 backdrop-blur sticky top-0 z-10 px-4 py-3">
         <div className="mx-auto flex max-w-md items-center justify-between">
           <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-xl shadow-xs">
-              🩺
+            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
+              <Stethoscope className="size-5" />
             </span>
             <div>
               <span className="block text-lg font-black leading-tight tracking-tight">
-                आशा सहाय्यक
+                {t("appName")}
               </span>
               <span className="block text-xs font-semibold text-muted-foreground">
-                ASHA Helper
+                {t("ruralHealthMission")}
               </span>
             </div>
           </Link>
@@ -153,10 +156,10 @@ function SignupPage() {
             </div>
             <h2 className="text-2xl font-black text-foreground">{t("signupSuccess")}</h2>
             <p className="mt-2 text-base text-muted-foreground">
-              नमस्ते, {fullName}! आपले खाते तयार झाले आहे.
+              {t("welcomeUser")}, {fullName}!
             </p>
             <p className="mt-1 text-sm text-primary font-bold">
-              आपल्या दैनिक वहीकडे (Dashboard) नेले जात आहे…
+              {t("redirectingToDiary")}
             </p>
           </Card>
         ) : (
@@ -177,24 +180,26 @@ function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setRole("asha")}
-                    className={`rounded-2xl border-2 p-3 text-center transition-all ${
+                    className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       role === "asha"
                         ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
-                        : "border-border bg-card text-muted-foreground font-semibold"
+                        : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
                     }`}
                   >
-                    👩‍⚕️ {t("roleAsha")}
+                    <HeartPulse className="size-4 shrink-0 text-primary" />
+                    <span>{t("roleAsha")}</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => setRole("facilitator")}
-                    className={`rounded-2xl border-2 p-3 text-center transition-all ${
+                    className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       role === "facilitator"
                         ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
-                        : "border-border bg-card text-muted-foreground font-semibold"
+                        : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
                     }`}
                   >
-                    📋 {t("roleFacilitator")}
+                    <ClipboardCheck className="size-4 shrink-0 text-accent" />
+                    <span>{t("roleFacilitator")}</span>
                   </button>
                 </div>
               </div>
@@ -211,7 +216,7 @@ function SignupPage() {
                     required
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
-                    placeholder="उदा. श्रीमती सुनिता रामचंद्र पाटील"
+                    placeholder={t("fullName")}
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
@@ -231,7 +236,7 @@ function SignupPage() {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
-                    placeholder="उदा. 9876543210"
+                    placeholder={t("enterMobile")}
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
@@ -242,13 +247,13 @@ function SignupPage() {
                 <div>
                   <label className="mb-1 block text-sm font-bold">{t("districtName")}</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                       <MapPin className="size-5" />
                     </span>
                     <select
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary appearance-none"
+                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary appearance-none cursor-pointer"
                     >
                       {MAHARASHTRA_DISTRICTS.map((d) => (
                         <option key={d} value={d}>
@@ -265,7 +270,7 @@ function SignupPage() {
                     type="text"
                     value={taluka}
                     onChange={(e) => setTaluka(e.target.value)}
-                    placeholder="उदा. कराड"
+                    placeholder="कराड / Karad"
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
@@ -276,14 +281,14 @@ function SignupPage() {
                 <div>
                   <label className="mb-1 block text-sm font-bold">{t("phcName")}</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                       <Building2 className="size-5" />
                     </span>
                     <input
                       type="text"
                       value={phc}
                       onChange={(e) => setPhc(e.target.value)}
-                      placeholder="उदा. मसूर PHC"
+                      placeholder="मसूर PHC"
                       className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
@@ -292,14 +297,14 @@ function SignupPage() {
                 <div>
                   <label className="mb-1 block text-sm font-bold">{t("subCenterName")}</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                       <Home className="size-5" />
                     </span>
                     <input
                       type="text"
                       value={subCenter}
                       onChange={(e) => setSubCenter(e.target.value)}
-                      placeholder="उदा. शिरोली उपकेंद्र"
+                      placeholder="शिरोली उपकेंद्र"
                       className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
@@ -314,7 +319,7 @@ function SignupPage() {
                     type="text"
                     value={village}
                     onChange={(e) => setVillage(e.target.value)}
-                    placeholder="उदा. शिरोली"
+                    placeholder="शिरोली / Shiroli"
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
@@ -322,14 +327,14 @@ function SignupPage() {
                 <div>
                   <label className="mb-1 block text-sm font-bold">{t("ashaIdField")}</label>
                   <div className="relative">
-                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                    <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                       <FileBadge className="size-5" />
                     </span>
                     <input
                       type="text"
                       value={ashaId}
                       onChange={(e) => setAshaId(e.target.value)}
-                      placeholder="उदा. ASHA-MH-0421"
+                      placeholder="ASHA-MH-0421"
                       className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
@@ -340,7 +345,7 @@ function SignupPage() {
               <div>
                 <label className="mb-1 block text-sm font-bold">{t("password")}</label>
                 <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none">
                     <Lock className="size-5" />
                   </span>
                   <input
@@ -348,7 +353,7 @@ function SignupPage() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    placeholder="किमान ४ अंकी पिन किंवा पासवर्ड"
+                    placeholder={t("enterPassword")}
                     className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary tracking-wider"
                   />
                 </div>
@@ -368,7 +373,7 @@ function SignupPage() {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 mt-2"
+                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 mt-2 cursor-pointer"
               >
                 {t("createAccountBtn")}
               </button>

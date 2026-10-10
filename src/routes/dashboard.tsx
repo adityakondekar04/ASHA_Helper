@@ -1,9 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
+  Baby,
   BookOpen,
+  Calendar,
   CalendarCheck,
   ClipboardPlus,
+  Clock,
   Compass,
   FileSpreadsheet,
   HeartPulse,
@@ -11,10 +14,12 @@ import {
   LogOut,
   ShieldCheck,
   Sparkles,
+  User,
   UserCheck,
   Users,
 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
+import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/form-kit";
 import { useT, vaccineLabel } from "@/lib/i18n";
 import { buildDueList, entriesThisMonth, useRecords } from "@/lib/store";
@@ -53,21 +58,20 @@ function DashboardPage() {
       <div className="mb-4 rounded-3xl border-2 border-primary/20 bg-primary/10 p-4 shadow-xs">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary text-xl text-primary-foreground font-black">
-              {user?.fullName ? user.fullName[0] : "आ"}
+            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground font-black shadow-xs">
+              <UserCheck className="size-6" />
             </span>
             <div className="min-w-0">
               <div className="flex items-center gap-1.5 flex-wrap">
                 <span className="text-sm font-bold text-primary flex items-center gap-1">
-                  <UserCheck className="size-4 shrink-0" />
-                  {t("welcomeUser")}, {user?.fullName?.split(" ")[1] || "ताई"}!
+                  {t("welcomeTai")}, {user?.fullName?.split(" ")[1] || user?.fullName || "ताई"}!
                 </span>
                 <span className="rounded-full bg-accent/20 text-accent px-2 py-0.5 text-xs font-bold">
                   {user?.role === "facilitator" ? t("roleFacilitator") : t("roleAsha")}
                 </span>
               </div>
               <p className="truncate text-xs font-semibold text-muted-foreground mt-0.5">
-                {user ? `${user.subCenter} • ${user.district}` : "शिरोली उपकेंद्र • सातारा"}
+                {user ? `${user.subCenter} • ${user.district}` : `${t("subcenterShiroli")}`}
               </p>
             </div>
           </div>
@@ -75,17 +79,17 @@ function DashboardPage() {
           <div className="flex items-center gap-2 shrink-0">
             <Link
               to="/"
-              className="rounded-xl border border-border bg-card px-2.5 py-1.5 text-xs font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 shadow-2xs"
-              title="मुख्य माहिती पान पहा"
+              className="rounded-xl border border-border bg-card px-2.5 py-1.5 text-xs font-bold text-muted-foreground hover:text-foreground flex items-center gap-1 shadow-2xs transition-colors"
+              title={t("navHome")}
             >
               <Compass className="size-3.5" />
-              <span className="hidden sm:inline">मुख्य पान</span>
+              <span className="hidden sm:inline">{t("navHome")}</span>
             </Link>
             {user && (
               <button
                 type="button"
                 onClick={logout}
-                className="rounded-xl border border-destructive/30 bg-destructive/10 px-2 py-1.5 text-xs font-bold text-destructive hover:bg-destructive/20 flex items-center gap-1"
+                className="rounded-xl border border-destructive/30 bg-destructive/10 px-2 py-1.5 text-xs font-bold text-destructive hover:bg-destructive/20 flex items-center gap-1 transition-colors"
                 title={t("logoutBtn")}
               >
                 <LogOut className="size-3.5" />
@@ -111,9 +115,9 @@ function DashboardPage() {
             {t("todayTasks")}
           </h2>
           {due.length > 0 && (
-            <span className="rounded-full bg-primary/20 text-primary px-2.5 py-0.5 text-xs font-black">
-              {due.length} बाकी
-            </span>
+            <Badge className="bg-primary/20 text-primary hover:bg-primary/30 text-xs font-black border-0">
+              {due.length} {t("activeRemaining")}
+            </Badge>
           )}
         </div>
 
@@ -122,7 +126,7 @@ function DashboardPage() {
             <Sparkles className="mx-auto mb-2 size-8 text-primary opacity-80" />
             <p className="text-lg font-bold">{t("noTasks")}</p>
             <p className="text-sm text-muted-foreground mt-1">
-              आज कोणत्याही तपासण्या किंवा लसीकरण प्रलंबित नाहीत. नवीन नोंद करण्यासाठी खालील बटण वापरा.
+              {t("noTasksDesc")}
             </p>
           </div>
         ) : (
@@ -141,7 +145,7 @@ function DashboardPage() {
                     <p className="truncate text-lg font-extrabold">{item.personName}</p>
                     {item.highRisk && (
                       <span className="rounded-full bg-destructive/15 text-destructive px-2 py-0.5 text-xs font-black flex items-center gap-1">
-                        <AlertTriangle className="size-3" /> धोका
+                        <AlertTriangle className="size-3" /> {t("riskWarningTag")}
                       </span>
                     )}
                   </div>
@@ -174,17 +178,34 @@ function DashboardPage() {
         {due.some((d) => d.highRisk) && (
           <div className="mt-3 flex items-center gap-2 rounded-2xl bg-destructive/10 px-4 py-3 text-base font-bold text-destructive">
             <AlertTriangle className="size-5 shrink-0" />
-            <span>{t("highRisk")} — प्राथमिक आरोग्य केंद्राशी (PHC) संपर्क साधा.</span>
+            <span>{t("highRisk")} — {t("phcReferralUrgent")}</span>
           </div>
         )}
       </Card>
 
       {/* 2x2 Field Statistics */}
       <div className="mb-4 grid grid-cols-2 gap-3">
-        <Stat value={entriesThisMonth(records)} label={t("statVisits")} icon="📅" />
-        <Stat value={due.length} label={t("statPending")} icon="⏳" highlight={due.length > 0} />
-        <Stat value={mothers} label={t("statMothers")} icon="🤰" />
-        <Stat value={children} label={t("statChildren")} icon="👶" />
+        <Stat
+          value={entriesThisMonth(records)}
+          label={t("statVisits")}
+          icon={<Calendar className="size-6 text-primary" />}
+        />
+        <Stat
+          value={due.length}
+          label={t("statPending")}
+          icon={<Clock className="size-6 text-primary" />}
+          highlight={due.length > 0}
+        />
+        <Stat
+          value={mothers}
+          label={t("statMothers")}
+          icon={<HeartPulse className="size-6 text-primary" />}
+        />
+        <Stat
+          value={children}
+          label={t("statChildren")}
+          icon={<Baby className="size-6 text-primary" />}
+        />
       </div>
 
       {/* Main Navigation Actions */}
@@ -193,7 +214,7 @@ function DashboardPage() {
           to="/entry"
           icon={<ClipboardPlus className="size-7" />}
           label={t("navEntry")}
-          note="गरोदर महिला, बाळ, टीबी रुग्ण किंवा डास सर्व्हे नोंदवा"
+          note={t("entrySubDesc")}
         />
         <NavButton
           to="/incentive"
@@ -222,7 +243,7 @@ function DashboardPage() {
           {t("privacyNote")}
         </p>
         <p className="text-xs text-muted-foreground/80 mt-1">
-          पुढील अपडेटमध्ये निऑन डेटाबेस (NeonDB) द्वारे सुरक्षित ऑटो-बॅकअप सुविधा जोडली जाईल.
+          {t("neonDbNotice")}
         </p>
       </div>
     </AppShell>
@@ -237,7 +258,7 @@ function Stat({
 }: {
   value: number;
   label: string;
-  icon?: string;
+  icon?: React.ReactNode;
   highlight?: boolean;
 }) {
   return (
@@ -250,7 +271,7 @@ function Stat({
     >
       <div className="flex items-center justify-between">
         <p className="text-3xl font-extrabold text-primary">{value}</p>
-        {icon && <span className="text-2xl">{icon}</span>}
+        {icon && <span className="opacity-80">{icon}</span>}
       </div>
       <p className="text-base font-bold text-muted-foreground mt-1">{label}</p>
     </div>
