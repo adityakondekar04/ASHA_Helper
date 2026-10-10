@@ -20,8 +20,8 @@ const STORAGE_KEY = "asha.auth.user.v1";
 
 export const DEMO_USERS: Record<string, AshaUser> = {
   asha: {
-    id: "demo-asha-1",
-    fullName: "श्रीमती सुनिता रामचंद्र पाटील",
+    id: "usr_asha_sunita",
+    fullName: "श्रीमती सुनिता रामचंद्र पाटील (Sunita Patil)",
     phone: "9876543210",
     role: "asha",
     district: "सातारा",
@@ -33,8 +33,8 @@ export const DEMO_USERS: Record<string, AshaUser> = {
     createdAt: new Date().toISOString(),
   },
   facilitator: {
-    id: "demo-fac-1",
-    fullName: "श्रीमती रेखा आनंद कांबळे",
+    id: "usr_fac_rekha",
+    fullName: "श्रीमती रेखा आनंद कांबळे (Rekha Kamble)",
     phone: "9822012345",
     role: "facilitator",
     district: "पुणे",
@@ -45,17 +45,45 @@ export const DEMO_USERS: Record<string, AshaUser> = {
     ashaId: "AF-MH-PUN-0118",
     createdAt: new Date().toISOString(),
   },
+  asha2: {
+    id: "usr_asha_priya",
+    fullName: "श्रीमती प्रिया विलास जाधव (Priya Jadhav)",
+    phone: "9890123456",
+    role: "asha",
+    district: "कोल्हापूर",
+    taluka: "हातकणंगले",
+    phc: "हुपरी प्राथमिक आरोग्य केंद्र",
+    subCenter: "रेंदाळ उपकेंद्र",
+    village: "रेंदाळ",
+    ashaId: "ASHA-MH-KLP-0892",
+    createdAt: new Date().toISOString(),
+  },
+  anm: {
+    id: "usr_anm_anita",
+    fullName: "श्रीमती अनिता दीपक देशमुख (Anita Deshmukh)",
+    phone: "9850987654",
+    role: "anm",
+    district: "नाशिक",
+    taluka: "निफाड",
+    phc: "लासलगाव प्राथमिक आरोग्य केंद्र",
+    subCenter: "लासलगाव उपकेंद्र",
+    village: "लासलगाव",
+    ashaId: "ANM-MH-NSK-0314",
+    createdAt: new Date().toISOString(),
+  },
 };
 
 interface AuthContextType {
   user: AshaUser | null;
+  isLoading: boolean;
   login: (user: AshaUser) => void;
   logout: () => void;
-  loginAsDemo: (role?: "asha" | "facilitator") => AshaUser;
+  loginAsDemo: (role?: "asha" | "facilitator" | "asha2" | "anm") => AshaUser;
 }
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
+  isLoading: true,
   login: () => {},
   logout: () => {},
   loginAsDemo: () => DEMO_USERS.asha,
@@ -63,6 +91,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AshaUser | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -70,12 +99,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (saved) {
         setUser(JSON.parse(saved));
       } else {
-        // Pre-seed with default ASHA worker for instant smooth UX
-        setUser(DEMO_USERS.asha);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(DEMO_USERS.asha));
+        setUser(null);
       }
     } catch (e) {
       console.warn("Failed to load auth user from localStorage", e);
+      setUser(null);
+    } finally {
+      setIsLoading(false);
     }
   }, []);
 
@@ -97,14 +127,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const loginAsDemo = (role: "asha" | "facilitator" = "asha") => {
-    const demo = DEMO_USERS[role];
+  const loginAsDemo = (role: "asha" | "facilitator" | "asha2" | "anm" = "asha") => {
+    const demo = DEMO_USERS[role] || DEMO_USERS.asha;
     login(demo);
     return demo;
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, loginAsDemo }}>
+    <AuthContext.Provider value={{ user, isLoading, login, logout, loginAsDemo }}>
       {children}
     </AuthContext.Provider>
   );

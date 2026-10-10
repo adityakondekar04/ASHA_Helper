@@ -1,5 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Activity,
   AlertTriangle,
@@ -18,6 +18,7 @@ import {
   IndianRupee,
   Layers,
   Lock,
+  LogOut,
   MapPin,
   MessageSquare,
   Phone,
@@ -86,15 +87,39 @@ export const Route = createFileRoute("/")({
 
 function LandingPage() {
   const { t, lang } = useT();
-  const { user } = useAuth();
+  const { user, isLoading, logout } = useAuth();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("anc");
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      navigate({ to: "/login" });
+    }
+  }, [isLoading, user, navigate]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#FDFBF7] flex flex-col items-center justify-center p-4">
+        <div className="size-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+        <p className="mt-4 font-black text-base text-foreground tracking-wide">
+          आशा सहाय्यक पोर्टल लोड होत आहे...
+        </p>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-background text-[17px] text-foreground flex flex-col justify-between selection:bg-primary/20">
       {/* 1. Global Announcement Banner */}
       <div className="bg-primary/10 border-b border-primary/20 px-4 py-2 text-center text-xs sm:text-sm font-bold text-primary flex items-center justify-center gap-2">
         <Sparkles className="size-4 shrink-0 text-primary" />
-        <span>{t("landingBadge")}</span>
+        <span>
+          स्वागत आहे, {user.fullName}! — {user.subCenter} ({user.district})
+        </span>
       </div>
 
       {/* 2. Top Header & Navbar */}
@@ -117,6 +142,10 @@ function LandingPage() {
 
           {/* Nav Links (Desktop) */}
           <nav className="hidden lg:flex items-center gap-6 text-sm font-bold text-muted-foreground">
+            <Link to="/chat" className="text-primary font-black hover:underline flex items-center gap-1 transition-colors">
+              <Sparkles className="size-3.5" />
+              <span>आशा साथी (AI)</span>
+            </Link>
             <a href="#features" className="hover:text-primary transition-colors">
               {t("features")}
             </a>
@@ -138,39 +167,27 @@ function LandingPage() {
           <div className="flex items-center gap-2.5">
             <LanguageSwitch />
 
-            {user ? (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/dashboard"
-                  className="rounded-2xl bg-primary px-3.5 py-2 text-sm font-black text-primary-foreground shadow-[0_2px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/90 flex items-center gap-1.5 transition-all"
-                >
-                  <CalendarCheck className="size-4" />
-                  <span className="hidden sm:inline">{t("openDailyDiary")}</span>
-                </Link>
-                <Link
-                  to="/login"
-                  className="rounded-2xl border border-border bg-card px-2.5 py-2 text-xs font-bold text-muted-foreground hover:text-foreground"
-                  title={t("navAccount")}
-                >
-                  <User className="size-4" />
-                </Link>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <Link
-                  to="/login"
-                  className="rounded-2xl border-2 border-border bg-card px-3.5 py-2 text-sm font-bold text-foreground hover:bg-secondary transition-all"
-                >
-                  {t("loginBtn")}
-                </Link>
-                <Link
-                  to="/signup"
-                  className="hidden sm:flex rounded-2xl bg-primary px-4 py-2 text-sm font-black text-primary-foreground shadow-[0_2px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all"
-                >
-                  {t("signupBtn")}
-                </Link>
-              </div>
-            )}
+            <div className="flex items-center gap-2">
+              <Link
+                to="/dashboard"
+                className="rounded-2xl bg-primary px-3.5 py-2 text-sm font-black text-primary-foreground shadow-[0_2px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/90 flex items-center gap-1.5 transition-all"
+              >
+                <CalendarCheck className="size-4" />
+                <span className="hidden sm:inline">{t("openDailyDiary")}</span>
+              </Link>
+              <button
+                type="button"
+                onClick={() => {
+                  logout();
+                  navigate({ to: "/login" });
+                }}
+                className="rounded-2xl border border-destructive/30 bg-destructive/10 px-2.5 py-2 text-xs font-bold text-destructive hover:bg-destructive/20 flex items-center gap-1 transition-colors cursor-pointer"
+                title={t("logoutBtn")}
+              >
+                <LogOut className="size-4" />
+                <span className="hidden md:inline">{t("logoutBtn")}</span>
+              </button>
+            </div>
           </div>
         </div>
       </header>
@@ -211,6 +228,14 @@ function LandingPage() {
                 >
                   <ClipboardPlus className="size-6 text-primary" />
                   <span>{t("navEntry")}</span>
+                </Link>
+
+                <Link
+                  to="/chat"
+                  className="rounded-3xl border-2 border-primary/40 bg-primary/10 px-5 py-4 text-center text-lg font-black text-primary hover:bg-primary/20 transition-all active:translate-y-1 flex items-center justify-center gap-2"
+                >
+                  <Sparkles className="size-6 text-primary" />
+                  <span>आशा साथी (AI)</span>
                 </Link>
               </div>
 

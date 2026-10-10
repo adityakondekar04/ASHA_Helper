@@ -1,6 +1,8 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect } from "react";
 import {
   AlertTriangle,
+  ArrowRight,
   Baby,
   BookOpen,
   Calendar,
@@ -46,11 +48,31 @@ export const Route = createFileRoute("/dashboard")({
 
 function DashboardPage() {
   const { t, lang } = useT();
-  const { user, logout } = useAuth();
+  const { user, isLoading, logout } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLoading && !user) {
+      navigate({ to: "/login" });
+    }
+  }, [isLoading, user, navigate]);
+
   const records = useRecords();
   const due = buildDueList(records);
   const mothers = records.filter((r) => r.kind === "pregnancy").length;
   const children = records.filter((r) => r.kind === "child").length;
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+        <div className="size-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <AppShell>
@@ -210,6 +232,33 @@ function DashboardPage() {
 
       {/* Main Navigation Actions */}
       <div className="grid gap-3">
+        <Link
+          to="/chat"
+          className="relative overflow-hidden block w-full rounded-3xl border-2 border-primary/40 bg-linear-to-r from-primary/15 via-primary/10 to-card p-4 text-left shadow-[0_3px_0_0_var(--color-border)] hover:border-primary transition-all active:translate-y-0.5 group"
+        >
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4">
+            <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs group-hover:scale-105 transition-transform">
+              <Sparkles className="size-7" />
+            </span>
+            <div className="min-w-0">
+              <div className="flex items-center gap-2">
+                <span className="block truncate text-xl font-black text-foreground">
+                  {lang === "en" ? "ASHA Saathi (AI Assistant)" : lang === "hi" ? "आशा साथी (AI सहायक)" : "आशा साथी (AI सहाय्यक)"}
+                </span>
+                <span className="rounded-full bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 text-[10px] font-black px-2 py-0.5">
+                  AI
+                </span>
+              </div>
+              <span className="block text-sm text-muted-foreground truncate font-semibold">
+                {lang === "en" ? "Ask questions, checklists, maternal & child health guidance" : lang === "hi" ? "प्रश्न पूछें, चेकलिस्ट और स्वास्थ्य संबंधी मार्गदर्शन लें" : "प्रश्न विचारा, चेकलिस्ट आणि आरोग्य मार्गदर्शन मिळवा"}
+              </span>
+            </div>
+            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+              <ArrowRight className="size-5" />
+            </span>
+          </div>
+        </Link>
+
         <NavButton
           to="/entry"
           icon={<ClipboardPlus className="size-7" />}

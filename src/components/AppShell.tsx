@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, Home, WifiOff, Wifi, Stethoscope } from "lucide-react";
+import { ArrowLeft, Home, WifiOff, Wifi, Stethoscope, Sparkles } from "lucide-react";
 import { useT, type Lang } from "@/lib/i18n";
 
 const LANGS: Array<{ code: Lang; label: string }> = [
@@ -95,7 +95,12 @@ export function AppShell({
         </div>
         <div className="mx-auto max-w-2xl px-4 pb-3 flex items-center justify-between gap-2">
           <OfflineBadge />
-          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-bold text-muted-foreground flex-wrap">
+            <Link to="/chat" className="text-primary hover:underline transition-colors flex items-center gap-1 font-black">
+              <Sparkles className="size-3" />
+              <span>आशा साथी (AI)</span>
+            </Link>
+            <span className="text-muted-foreground/40">•</span>
             <Link to="/dashboard" className="hover:text-primary transition-colors">
               {t("navDiary")}
             </Link>
@@ -115,12 +120,18 @@ export function AppShell({
 
       {backTo && (
         <nav className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-border bg-card px-4 py-3 shadow-lg">
-          <div className="mx-auto flex max-w-2xl gap-3">
+          <div className="mx-auto flex max-w-2xl gap-2.5">
             <Link
               to={backTo === "/" ? "/dashboard" : backTo}
-              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground hover:bg-secondary/80 transition-colors"
+              className="flex flex-1 items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-base font-bold text-secondary-foreground hover:bg-secondary/80 transition-colors"
             >
               <Home className="size-5" /> {t("home")}
+            </Link>
+            <Link
+              to="/chat"
+              className="flex items-center justify-center gap-1.5 rounded-2xl bg-primary px-4 py-3 text-base font-black text-primary-foreground hover:bg-primary/95 transition-colors shadow-xs"
+            >
+              <Sparkles className="size-4" /> <span>आशा साथी</span>
             </Link>
           </div>
         </nav>
