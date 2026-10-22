@@ -78,7 +78,7 @@ function SchemePage() {
       <div className="space-y-4">
         {SECTIONS.map((s) => (
           <Card key={s.heading[2]} className="space-y-3">
-            <h2 className="text-xl font-extrabold">{pick(lang, s.heading)}</h2>
+            <h2 className="text-base font-semibold">{pick(lang, s.heading)}</h2>
             <p className="text-base leading-snug text-muted-foreground">{pick(lang, s.body)}</p>
             <ul className="space-y-2">
               {s.points.map((p) => (

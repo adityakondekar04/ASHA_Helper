@@ -133,11 +133,11 @@ function ChildForm() {
         </Card>
 
         <Card className="space-y-3">
-          <h2 className="text-xl font-extrabold">{t("immunization")}</h2>
+          <h2 className="text-base font-semibold">{t("immunization")}</h2>
           {VACCINES.map((v) => {
             const dateGiven = value.vaccines[v.code] ?? "";
             return (
-              <div key={v.code} className="rounded-2xl border-2 border-border p-3">
+              <div key={v.code} className="rounded-xl border border-border p-3">
                 <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3">
                   <span className="min-w-0 truncate text-lg font-bold">{v.label[langIndex]}</span>
                   <button
@@ -180,9 +180,9 @@ function ChildForm() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="text-xl font-extrabold">{t("growth")}</h2>
+          <h2 className="text-base font-semibold">{t("growth")}</h2>
           {value.growth.map((g, i) => (
-            <div key={i} className="space-y-3 rounded-2xl border-2 border-border p-3">
+            <div key={i} className="space-y-3 rounded-xl border border-border p-3">
               <Field label={t("date")}>
                 <TextInput
                   type="date"
@@ -218,7 +218,7 @@ function ChildForm() {
           <button
             type="button"
             onClick={() => setValue((v) => ({ ...v, growth: [...v.growth, { ...EMPTY_GROWTH }] }))}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
           >
             <Plus className="size-5" /> {t("addRow")}
           </button>

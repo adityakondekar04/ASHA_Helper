@@ -122,9 +122,9 @@ function TbForm() {
         </Card>
 
         <Card className="space-y-3">
-          <h2 className="text-xl font-extrabold">{t("tbDoses")}</h2>
+          <h2 className="text-base font-semibold">{t("tbDoses")}</h2>
           {value.doses.map((d, i) => (
-            <div key={d.label} className="space-y-3 rounded-2xl border-2 border-border p-3">
+            <div key={d.label} className="space-y-3 rounded-xl border border-border p-3">
               <BigToggle
                 checked={d.taken}
                 onChange={(v) =>
@@ -152,14 +152,14 @@ function TbForm() {
                 doses: [...v.doses, { label: `M${v.doses.length + 1}`, date: "", taken: false }],
               }))
             }
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
           >
             <Plus className="size-5" /> {t("addRow")}
           </button>
         </Card>
 
         <Card className="space-y-3">
-          <h2 className="text-xl font-extrabold">{t("tbFollowUps")}</h2>
+          <h2 className="text-base font-semibold">{t("tbFollowUps")}</h2>
           {value.followUps.map((f, i) => (
             <TextInput
               key={i}
@@ -176,7 +176,7 @@ function TbForm() {
           <button
             type="button"
             onClick={() => setValue((v) => ({ ...v, followUps: [...v.followUps, ""] }))}
-            className="flex w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground"
+            className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
           >
             <Plus className="size-5" /> {t("addRow")}
           </button>

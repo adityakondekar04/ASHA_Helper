@@ -127,7 +127,7 @@ function ProfileMenu() {
               <p className="text-xs text-muted-foreground truncate mt-0.5">
                 {user.subCenter} • {user.district}
               </p>
-              <span className="mt-1.5 inline-block rounded-full bg-accent/15 px-2 py-0.5 text-[11px] font-medium text-accent">
+              <span className="mt-1.5 inline-block rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
                 {user.role === "facilitator" ? t("roleFacilitator") : t("roleAsha")}
               </span>
             </div>
@@ -261,7 +261,7 @@ export function AppShell({
               className="flex min-h-[48px] flex-col items-center justify-center py-1.5 text-xs transition-colors"
             >
               <item.icon className="size-5 mb-0.5 shrink-0" />
-              <span className="truncate max-w-[72px] leading-tight text-[11px] font-medium">
+              <span className="truncate max-w-[72px] leading-normal text-xs font-medium">
                 {pick(lang, item.label)}
               </span>
             </Link>

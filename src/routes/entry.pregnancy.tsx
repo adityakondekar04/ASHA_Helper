@@ -141,10 +141,10 @@ function PregnancyForm() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="text-xl font-extrabold">{t("ancVisits")}</h2>
+          <h2 className="text-base font-semibold">{t("ancVisits")}</h2>
           {value.ancVisits.map((v, i) => (
-            <div key={i} className="space-y-3 rounded-2xl border-2 border-border p-3">
-              <p className="text-base font-bold text-muted-foreground">
+            <div key={i} className="space-y-3 rounded-xl border border-border p-3">
+              <p className="text-sm font-medium text-muted-foreground">
                 {t("visit")} {i + 1}
               </p>
               <Field label={t("date")}>
@@ -185,7 +185,7 @@ function PregnancyForm() {
               onClick={() =>
                 setValue((v) => ({ ...v, ancVisits: [...v.ancVisits, { ...EMPTY_VISIT }] }))
               }
-              className="flex w-full items-center justify-center gap-2 rounded-2xl bg-secondary px-4 py-3 text-lg font-bold text-secondary-foreground"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-secondary px-4 py-3 text-sm font-semibold text-secondary-foreground"
             >
               <Plus className="size-5" /> {t("addRow")}
             </button>
@@ -193,7 +193,7 @@ function PregnancyForm() {
         </Card>
 
         <Card className="space-y-4">
-          <h2 className="text-xl font-extrabold">{t("deliveryDetails")}</h2>
+          <h2 className="text-base font-semibold">{t("deliveryDetails")}</h2>
           <Field label={t("deliveryDate")}>
             <TextInput
               type="date"

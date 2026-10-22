@@ -17,7 +17,7 @@ import {
   UserCheck,
   Users,
 } from "lucide-react";
-import { LanguageSwitch } from "@/components/AppShell";
+import { AppShell } from "@/components/AppShell";
 import { Card } from "@/components/ui/form-kit";
 import { useT } from "@/lib/i18n";
 import { DEMO_USERS, useAuth, type UserRole } from "@/lib/auth";
@@ -217,38 +217,11 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDFBF7] text-[17px] text-foreground flex flex-col justify-between selection:bg-primary/20">
-      {/* 1. Official Government Header */}
-      <header className="border-b-2 border-border/80 bg-white/95 backdrop-blur sticky top-0 z-20 px-4 py-2.5 shadow-2xs">
-        <div className="mx-auto flex max-w-xl items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span className="grid size-11 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
-              <Stethoscope className="size-6" />
-            </span>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black tracking-wider uppercase text-primary">
-                  महाराष्ट्र शासन
-                </span>
-                <span className="text-muted-foreground/40">•</span>
-                <span className="text-[11px] font-bold text-muted-foreground">
-                  सार्वजनिक आरोग्य विभाग
-                </span>
-              </div>
-              <span className="block text-lg font-black leading-tight tracking-tight text-foreground">
-                {t("appName")} — डिजिटल वही
-              </span>
-            </div>
-          </div>
-          <LanguageSwitch />
-        </div>
-      </header>
-
-      {/* 2. Main Login Area */}
-      <main className="mx-auto w-full max-w-md px-4 py-6 flex-1 flex flex-col justify-center">
+    <AppShell maxWidth="max-w-md">
+      <div className="w-full py-4 space-y-4">
         {/* If Already Logged In */}
         {user ? (
-          <div className="rounded-3xl border-2 border-primary/30 bg-white p-6 shadow-md text-center space-y-4">
+          <div className="rounded-xl border border-primary/30 bg-white p-6  text-center space-y-4">
             <div className="mx-auto grid size-16 place-items-center rounded-full bg-primary/10 text-primary">
               <UserCheck className="size-8" />
             </div>
@@ -257,7 +230,7 @@ function LoginPage() {
                 <BadgeCheck className="size-4" />
                 सध्या सक्रिय खाते
               </span>
-              <h2 className="text-xl font-black text-foreground mt-2">{user.fullName}</h2>
+              <h2 className="text-xl font-semibold text-foreground mt-2">{user.fullName}</h2>
               <p className="text-sm font-semibold text-muted-foreground mt-1">
                 {user.role === "facilitator" ? "आशा गटप्रवर्तक" : "आशा कार्यकर्ती"} • {user.subCenter}
               </p>
@@ -266,21 +239,21 @@ function LoginPage() {
             <div className="pt-2 flex flex-col gap-2.5">
               <Link
                 to="/"
-                className="w-full rounded-2xl bg-primary py-3.5 text-center text-base font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-primary py-3.5 text-center text-base font-semibold text-primary-foreground  hover:bg-primary/95 transition-all flex items-center justify-center gap-2"
               >
                 <span>लँडिंग पृष्ठावर जा (Go to Landing Page)</span>
                 <ArrowRight className="size-4" />
               </Link>
               <Link
                 to="/dashboard"
-                className="w-full rounded-2xl border-2 border-border bg-secondary py-3 text-center text-base font-bold text-secondary-foreground hover:bg-secondary/80 transition-colors"
+                className="w-full rounded-xl border border-border bg-secondary py-3 text-center text-base font-bold text-secondary-foreground hover:bg-secondary/80 transition-colors"
               >
                 दैनिक वही उघडा (Open Daily Diary)
               </Link>
               <button
                 type="button"
                 onClick={logout}
-                className="w-full rounded-2xl border border-destructive/30 py-2.5 text-center text-sm font-bold text-destructive hover:bg-destructive/10 transition-colors flex items-center justify-center gap-1.5"
+                className="w-full rounded-xl border border-destructive/30 py-2.5 text-center text-sm font-bold text-destructive hover:bg-destructive/10 transition-colors flex items-center justify-center gap-1.5"
               >
                 <LogOut className="size-4" />
                 <span>खाते बदला / लॉगआउट करा</span>
@@ -291,10 +264,10 @@ function LoginPage() {
           <>
             {/* Title & Introduction */}
             <div className="mb-5 text-center">
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1 text-xs font-black text-primary mb-2.5 border border-primary/20">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3.5 py-1 text-xs font-semibold text-primary mb-2.5 border border-primary/20">
                 <span>राष्ट्रीय आरोग्य अभियान (NHM महाराष्ट्र)</span>
               </div>
-              <h1 className="text-2xl font-black text-foreground tracking-tight">
+              <h1 className="text-2xl font-semibold text-foreground ">
                 {t("loginHeading")}
               </h1>
               <p className="mt-1 text-sm text-muted-foreground font-medium">
@@ -303,22 +276,22 @@ function LoginPage() {
             </div>
 
             {/* Official Training & Demo Credentials Card */}
-            <div className="mb-5 rounded-3xl border-2 border-primary/25 bg-gradient-to-b from-amber-50/70 via-white to-white p-4 shadow-sm">
+            <div className="mb-5 rounded-xl border border-primary/25 bg-gradient-to-b from-amber-50/70 via-white to-white p-4 ">
               <div className="flex items-center justify-between gap-2 border-b border-primary/15 pb-2.5 mb-3">
                 <div className="flex items-center gap-2">
-                  <span className="grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground font-black text-xs">
+                  <span className="grid size-7 place-items-center rounded-lg bg-primary text-primary-foreground font-semibold text-xs">
                     🪪
                   </span>
                   <div>
-                    <h3 className="text-sm font-black text-foreground">
+                    <h3 className="text-sm font-semibold text-foreground">
                       प्रात्यक्षिक व चाचणी लॉगिन तपशील
                     </h3>
-                    <p className="text-[11px] font-medium text-muted-foreground">
+                    <p className="text-xs font-medium text-muted-foreground">
                       (Field Training & Demo Credentials)
                     </p>
                   </div>
                 </div>
-                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-extrabold text-primary">
+                <span className="rounded-full bg-primary/10 px-2 py-0.5 text-xs font-semibold text-primary">
                   अधिकृत
                 </span>
               </div>
@@ -333,7 +306,7 @@ function LoginPage() {
                   }}
                   className={`py-1.5 px-2 text-xs font-bold rounded-lg transition-all ${
                     selectedDemoIndex === 0
-                      ? "bg-white text-primary font-black shadow-xs"
+                      ? "bg-white text-primary font-semibold "
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -347,7 +320,7 @@ function LoginPage() {
                   }}
                   className={`py-1.5 px-2 text-xs font-bold rounded-lg transition-all ${
                     selectedDemoIndex === 1
-                      ? "bg-white text-primary font-black shadow-xs"
+                      ? "bg-white text-primary font-semibold "
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -356,35 +329,35 @@ function LoginPage() {
               </div>
 
               {/* Profile Details Box */}
-              <div className="rounded-2xl border border-border bg-white p-3 space-y-2">
+              <div className="rounded-xl border border-border bg-white p-3 space-y-2">
                 <div className="flex items-start justify-between">
                   <div>
-                    <span className="text-sm font-black text-foreground block">
+                    <span className="text-sm font-semibold text-foreground block">
                       {activeDemo.name}
                     </span>
                     <span className="text-xs text-muted-foreground font-medium block">
                       {activeDemo.area}
                     </span>
                   </div>
-                  <span className="rounded-md bg-accent/15 px-2 py-0.5 text-[11px] font-black text-accent">
+                  <span className="rounded-md bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
                     {activeDemo.badge}
                   </span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 pt-1 border-t border-border/60">
                   <div className="rounded-xl bg-secondary/50 p-2 text-left">
-                    <span className="block text-[10px] font-bold text-muted-foreground uppercase">
+                    <span className="block text-xs font-bold text-muted-foreground uppercase">
                       मोबाईल नंबर
                     </span>
-                    <span className="text-sm font-black font-mono text-foreground">
+                    <span className="text-sm font-semibold font-mono text-foreground">
                       {activeDemo.phone}
                     </span>
                   </div>
                   <div className="rounded-xl bg-secondary/50 p-2 text-left">
-                    <span className="block text-[10px] font-bold text-muted-foreground uppercase">
+                    <span className="block text-xs font-bold text-muted-foreground uppercase">
                       पासवर्ड / पिन
                     </span>
-                    <span className="text-sm font-black font-mono text-primary">
+                    <span className="text-sm font-semibold font-mono text-primary">
                       {activeDemo.password}
                     </span>
                   </div>
@@ -396,7 +369,7 @@ function LoginPage() {
                 <button
                   type="button"
                   onClick={() => handleAutofillDemo(activeDemo)}
-                  className="flex-1 rounded-xl border border-border bg-white py-2 px-2.5 text-xs font-bold text-foreground hover:bg-secondary/60 transition-colors shadow-2xs text-center cursor-pointer"
+                  className="flex-1 rounded-xl border border-border bg-white py-2 px-2.5 text-xs font-bold text-foreground hover:bg-secondary/60 transition-colors  text-center cursor-pointer"
                 >
                   फॉर्ममध्ये भरा (Autofill)
                 </button>
@@ -404,7 +377,7 @@ function LoginPage() {
                   type="button"
                   onClick={() => handleDirectDemoLogin(activeDemo)}
                   disabled={loading}
-                  className="flex-1 rounded-xl bg-primary py-2 px-2.5 text-xs font-black text-primary-foreground hover:bg-primary/95 transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer"
+                  className="flex-1 rounded-xl bg-primary py-2 px-2.5 text-xs font-semibold text-primary-foreground hover:bg-primary/95 transition-all  flex items-center justify-center gap-1 cursor-pointer"
                 >
                   <span>थेट प्रवेश करा</span>
                   <ArrowRight className="size-3.5" />
@@ -421,9 +394,9 @@ function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setRole("asha")}
-                  className={`rounded-2xl border-2 p-2.5 text-center transition-all flex items-center justify-center gap-2 ${
+                  className={`rounded-xl border p-2.5 text-center transition-all flex items-center justify-center gap-2 ${
                     role === "asha"
-                      ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                      ? "border-primary bg-primary/10 text-primary font-semibold "
                       : "border-border bg-white text-muted-foreground font-semibold hover:text-foreground"
                   }`}
                 >
@@ -433,9 +406,9 @@ function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setRole("facilitator")}
-                  className={`rounded-2xl border-2 p-2.5 text-center transition-all flex items-center justify-center gap-2 ${
+                  className={`rounded-xl border p-2.5 text-center transition-all flex items-center justify-center gap-2 ${
                     role === "facilitator"
-                      ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                      ? "border-primary bg-primary/10 text-primary font-semibold "
                       : "border-border bg-white text-muted-foreground font-semibold hover:text-foreground"
                   }`}
                 >
@@ -446,9 +419,9 @@ function LoginPage() {
             </div>
 
             {/* Login Form Card */}
-            <Card className="mb-5 shadow-[0_4px_0_0_var(--color-border)] bg-white">
+            <Card className="mb-5  bg-white">
               {/* Method Tabs */}
-              <div className="mb-5 flex rounded-2xl border-2 border-border bg-secondary p-1">
+              <div className="mb-5 flex rounded-xl border border-border bg-secondary p-1">
                 <button
                   type="button"
                   onClick={() => {
@@ -457,7 +430,7 @@ function LoginPage() {
                   }}
                   className={`flex-1 rounded-xl py-2 text-sm font-bold transition-all ${
                     mode === "password"
-                      ? "bg-white text-foreground shadow-xs font-black"
+                      ? "bg-white text-foreground  font-semibold"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -471,7 +444,7 @@ function LoginPage() {
                   }}
                   className={`flex-1 rounded-xl py-2 text-sm font-bold transition-all ${
                     mode === "otp"
-                      ? "bg-white text-foreground shadow-xs font-black"
+                      ? "bg-white text-foreground  font-semibold"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -480,7 +453,7 @@ function LoginPage() {
               </div>
 
               {error && (
-                <div className="mb-4 rounded-2xl bg-destructive/15 p-3 text-sm font-bold text-destructive flex items-start gap-2">
+                <div className="mb-4 rounded-xl bg-destructive/15 p-3 text-sm font-bold text-destructive flex items-start gap-2">
                   <span className="mt-0.5">⚠️</span>
                   <span>{error}</span>
                 </div>
@@ -503,7 +476,7 @@ function LoginPage() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                         placeholder={t("enterMobile")}
-                        className="w-full rounded-2xl border-2 border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white transition-all"
+                        className="w-full rounded-xl border border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white transition-all"
                       />
                     </div>
                   </div>
@@ -536,7 +509,7 @@ function LoginPage() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="••••••"
-                        className="w-full rounded-2xl border-2 border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white tracking-widest transition-all"
+                        className="w-full rounded-xl border border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white tracking-widest transition-all"
                       />
                     </div>
                   </div>
@@ -555,7 +528,7 @@ function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
+                    className="w-full rounded-xl bg-primary py-3.5 text-center text-lg font-semibold text-primary-foreground  hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
                   >
                     {loading ? "लॉगिन होत आहे..." : t("loginBtn")}
                   </button>
@@ -578,13 +551,13 @@ function LoginPage() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                           placeholder={t("enterMobile")}
-                          className="w-full rounded-2xl border-2 border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white transition-all"
+                          className="w-full rounded-xl border border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-bold outline-none focus:border-primary focus:bg-white transition-all"
                         />
                       </div>
                       <button
                         type="button"
                         onClick={handleSendOtp}
-                        className="rounded-2xl border-2 border-primary bg-primary/10 px-4 text-sm font-bold text-primary hover:bg-primary/20 shrink-0 cursor-pointer"
+                        className="rounded-xl border border-primary bg-primary/10 px-4 text-sm font-bold text-primary hover:bg-primary/20 shrink-0 cursor-pointer"
                       >
                         {t("sendOtp")}
                       </button>
@@ -592,7 +565,7 @@ function LoginPage() {
                   </div>
 
                   {otpSent && (
-                    <div className="rounded-2xl bg-accent/15 p-3 text-xs font-semibold text-accent flex items-center gap-2">
+                    <div className="rounded-xl bg-accent/15 p-3 text-xs font-semibold text-accent flex items-center gap-2">
                       <CheckCircle2 className="size-4 shrink-0" />
                       <span>{t("demoOtpNotice")}</span>
                     </div>
@@ -613,7 +586,7 @@ function LoginPage() {
                         value={otp}
                         onChange={(e) => setOtp(e.target.value.replace(/\D/g, ""))}
                         placeholder="123456"
-                        className="w-full rounded-2xl border-2 border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-black tracking-widest outline-none focus:border-primary focus:bg-white transition-all"
+                        className="w-full rounded-xl border border-border bg-[#FCFAF6] py-3 pl-12 pr-4 text-lg font-semibold tracking-widest outline-none focus:border-primary focus:bg-white transition-all"
                       />
                     </div>
                   </div>
@@ -621,7 +594,7 @@ function LoginPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
+                    className="w-full rounded-xl bg-primary py-3.5 text-center text-lg font-semibold text-primary-foreground  hover:bg-primary/95 transition-all active:translate-y-0.5 cursor-pointer"
                   >
                     {loading ? "सत्यापित होत आहे..." : t("loginBtn")}
                   </button>
@@ -644,10 +617,10 @@ function LoginPage() {
             </div>
 
             {/* New Registration Link */}
-            <div className="rounded-2xl border-2 border-border bg-white p-3.5 text-center shadow-2xs">
+            <div className="rounded-xl border border-border bg-white p-3.5 text-center ">
               <p className="text-sm font-semibold text-muted-foreground">
                 {t("dontHaveAccount")}{" "}
-                <Link to="/signup" className="font-extrabold text-primary hover:underline">
+                <Link to="/signup" className="font-semibold text-primary hover:underline">
                   {t("registerNow")}
                 </Link>
               </p>
@@ -661,13 +634,12 @@ function LoginPage() {
             <ShieldCheck className="size-4 text-accent" />
             <span>{t("privacyNote")}</span>
           </p>
-          <p className="text-[11px] text-muted-foreground/80 flex items-center justify-center gap-1">
+          <p className="text-xs text-muted-foreground/80 flex items-center justify-center gap-1">
             <HelpCircle className="size-3" />
             <span>तांत्रिक मदत व सहाय्य: टोल-फ्री राष्ट्रीय आरोग्य हेल्पलाईन १०४</span>
           </p>
         </div>
-      </main>
-    </div>
+            </div>
+    </AppShell>
   );
 }
-

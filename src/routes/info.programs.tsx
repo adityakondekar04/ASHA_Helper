@@ -150,7 +150,7 @@ function ProgramsPage() {
             <div className="space-y-4">
               {g.blocks.map((b) => (
                 <div key={b.sub[2]} className="space-y-2">
-                  <h3 className="text-base font-extrabold text-primary">{pick(lang, b.sub)}</h3>
+                  <h3 className="text-sm font-semibold text-primary">{pick(lang, b.sub)}</h3>
                   <CheckList items={b.items.map((i) => pick(lang, i))} />
                 </div>
               ))}

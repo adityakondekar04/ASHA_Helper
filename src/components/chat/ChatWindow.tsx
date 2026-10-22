@@ -244,17 +244,17 @@ export function ChatWindow() {
           {messages.length === 0 ? (
             <div className="space-y-6 py-4 sm:py-8 text-center animate-in fade-in zoom-in-95 duration-200">
               {/* Welcome Badge & Card */}
-              <div className="mx-auto max-w-lg rounded-3xl border-2 border-primary/20 bg-linear-to-b from-primary/10 via-primary/5 to-card p-6 shadow-sm">
-                <div className="mx-auto mb-3 grid size-16 place-items-center rounded-3xl bg-primary text-primary-foreground shadow-md">
+              <div className="mx-auto max-w-lg rounded-xl border border-primary/20 bg-linear-to-b from-primary/10 via-primary/5 to-card p-6 shadow-sm">
+                <div className="mx-auto mb-3 grid size-16 place-items-center rounded-xl bg-primary text-primary-foreground shadow-md">
                   <Stethoscope className="size-8" />
                 </div>
-                <h2 className="text-xl sm:text-2xl font-black text-foreground">
+                <h2 className="text-xl sm:text-2xl font-semibold text-foreground">
                   {t.title}
                 </h2>
                 <p className="mt-2 text-sm sm:text-base font-semibold text-foreground/90 leading-relaxed">
                   {t.welcomeGreeting}
                 </p>
-                <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-black text-primary">
+                <div className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-primary/15 px-3 py-1 text-xs font-semibold text-primary">
                   <Sparkles className="size-3.5" />
                   <span>{t.welcomeSub}</span>
                 </div>
@@ -263,7 +263,7 @@ export function ChatWindow() {
               {/* Pre-presented suggested questions */}
               <div className="text-left space-y-2">
                 <div className="flex items-center justify-between px-1">
-                  <span className="text-xs font-black uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                  <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
                     <Sparkles className="size-3.5 text-primary" />
                     <span>{t.quickQuestionsTitle}</span>
                   </span>
@@ -328,12 +328,12 @@ export function ChatWindow() {
 
           {/* Error Message with Retry */}
           {error && (
-            <div className="rounded-2xl border-2 border-destructive/40 bg-destructive/10 p-3 text-sm font-bold text-destructive flex items-center justify-between gap-2">
+            <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-sm font-bold text-destructive flex items-center justify-between gap-2">
               <span>{error}</span>
               <button
                 type="button"
                 onClick={() => handleSendMessage()}
-                className="shrink-0 rounded-xl bg-destructive px-3 py-1 text-xs font-black text-destructive-foreground hover:bg-destructive/90 flex items-center gap-1 cursor-pointer"
+                className="shrink-0 rounded-xl bg-destructive px-3 py-1 text-xs font-semibold text-destructive-foreground hover:bg-destructive/90 flex items-center gap-1 cursor-pointer"
               >
                 <RefreshCw className="size-3" />
                 <span>{t.retry}</span>
@@ -343,7 +343,7 @@ export function ChatWindow() {
 
           {/* Medical Safety Disclaimer */}
           <div className="pt-2 pb-1 text-center">
-            <p className="text-[11px] font-semibold text-muted-foreground flex items-center justify-center gap-1">
+            <p className="text-xs font-semibold text-muted-foreground flex items-center justify-center gap-1">
               <Info className="size-3 text-accent shrink-0" />
               <span>{t.disclaimer}</span>
             </p>

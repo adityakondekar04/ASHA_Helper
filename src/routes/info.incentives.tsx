@@ -28,13 +28,13 @@ function IncentivesPage() {
   const { t, lang } = useT();
   return (
     <AppShell title={t("infoRates")} backTo="/info">
-      <div className="overflow-hidden rounded-3xl border-2 border-border bg-card shadow-[0_2px_0_0_var(--color-border)]">
+      <div className="overflow-hidden rounded-xl border border-border bg-card">
         <table className="w-full border-collapse text-left">
           <thead>
             <tr className="bg-secondary text-secondary-foreground">
-              <th className="px-3 py-3 text-base font-extrabold">{t("activity")}</th>
-              <th className="px-3 py-3 text-base font-extrabold">{t("amount")}</th>
-              <th className="px-3 py-3 text-base font-extrabold">{t("notes")}</th>
+              <th className="px-3 py-3 text-sm font-semibold">{t("activity")}</th>
+              <th className="px-3 py-3 text-sm font-semibold">{t("amount")}</th>
+              <th className="px-3 py-3 text-sm font-semibold">{t("notes")}</th>
             </tr>
           </thead>
           <tbody>
@@ -43,7 +43,7 @@ function IncentivesPage() {
                 <td className="px-3 py-3 text-base font-bold leading-snug">
                   {pick(lang, r.activity)}
                 </td>
-                <td className="whitespace-nowrap px-3 py-3 text-lg font-extrabold text-primary">
+                <td className="whitespace-nowrap px-3 py-3 text-base font-semibold text-primary">
                   ₹{r.rate}
                 </td>
                 <td className="px-3 py-3 text-sm leading-snug text-muted-foreground">

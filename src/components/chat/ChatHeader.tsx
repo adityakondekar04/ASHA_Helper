@@ -38,24 +38,24 @@ export function ChatHeader({
         <div className="flex items-center gap-2.5 min-w-0">
           <Link
             to="/dashboard"
-            className="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+            className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
             title={t.backToDiary}
             aria-label={t.backToDiary}
           >
             <ArrowLeft className="size-5" />
           </Link>
 
-          <div className="grid size-10 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
+          <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-xs">
             <Stethoscope className="size-5" />
           </div>
 
           <div className="min-w-0">
             <div className="flex items-center gap-2">
-              <h1 className="truncate text-base sm:text-lg font-black tracking-tight text-foreground">
+              <h1 className="truncate text-base sm:text-lg font-semibold  text-foreground">
                 {t.title}
               </h1>
               {/* Online status indicator */}
-              <span className="hidden xs:inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-[11px] font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+              <span className="hidden xs:inline-flex items-center gap-1 rounded-full bg-emerald-500/10 px-2 py-0.5 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
                 <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>{t.statusAiReady}</span>
               </span>
@@ -73,7 +73,7 @@ export function ChatHeader({
             <button
               type="button"
               onClick={() => setLangMenuOpen(!langMenuOpen)}
-              className="flex items-center gap-1.5 rounded-2xl border-2 border-border bg-background px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-bold text-foreground hover:border-primary/50 transition-all cursor-pointer shadow-2xs"
+              className="flex items-center gap-1.5 rounded-xl border border-border bg-background px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-bold text-foreground hover:border-primary/50 transition-all cursor-pointer shadow-2xs"
               aria-label={t.switchLanguage}
             >
               <Globe className="size-3.5 text-primary shrink-0" />
@@ -87,7 +87,7 @@ export function ChatHeader({
                   className="fixed inset-0 z-30"
                   onClick={() => setLangMenuOpen(false)}
                 />
-                <div className="absolute right-0 top-full mt-1.5 z-40 w-36 rounded-2xl border-2 border-border bg-card p-1.5 shadow-xl animate-in fade-in zoom-in-95 duration-150">
+                <div className="absolute right-0 top-full mt-1.5 z-40 w-36 rounded-xl border border-border bg-card p-1.5 shadow-xl animate-in fade-in zoom-in-95 duration-150">
                   {LANGUAGE_OPTIONS.map((opt) => (
                     <button
                       key={opt.code}
@@ -115,7 +115,7 @@ export function ChatHeader({
           <button
             type="button"
             onClick={onNewChat}
-            className="flex items-center gap-1 rounded-2xl bg-primary/10 border-2 border-primary/20 px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-bold text-primary hover:bg-primary/20 transition-all cursor-pointer"
+            className="flex items-center gap-1 rounded-xl bg-primary/10 border border-primary/20 px-2.5 sm:px-3 py-1.5 text-xs sm:text-sm font-bold text-primary hover:bg-primary/20 transition-all cursor-pointer"
             title={t.newChat}
           >
             <PlusCircle className="size-3.5" />
@@ -126,13 +126,13 @@ export function ChatHeader({
           <button
             type="button"
             onClick={onToggleHistory}
-            className="flex size-9 sm:size-10 items-center justify-center rounded-2xl border-2 border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all cursor-pointer relative"
+            className="flex size-9 sm:size-10 items-center justify-center rounded-xl border border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all cursor-pointer relative"
             title={t.chatHistory}
             aria-label={t.chatHistory}
           >
             <History className="size-4" />
             {historyCount > 0 && (
-              <span className="absolute -top-1 -right-1 grid size-4 place-items-center rounded-full bg-primary text-[10px] font-black text-primary-foreground">
+              <span className="absolute -top-1 -right-1 grid size-4 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                 {historyCount > 9 ? "9+" : historyCount}
               </span>
             )}

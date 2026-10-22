@@ -122,7 +122,7 @@ function SurveyForm() {
         </Card>
 
         <Card className="space-y-3">
-          <h2 className="text-xl font-extrabold">{t("feverChecklist")}</h2>
+          <h2 className="text-base font-semibold">{t("feverChecklist")}</h2>
           {FEVER_CHECKS.map((c) => (
             <BigToggle
               key={c.code}

@@ -132,7 +132,7 @@ function WorkerHome({ user }: { user: any }) {
                       {item.personName}
                     </p>
                     {item.highRisk && (
-                      <span className="rounded-full bg-destructive/15 text-destructive px-1.5 py-0.2 text-[10px] font-medium">
+                      <span className="rounded-full bg-destructive/15 text-destructive px-1.5 py-0.2 text-xs font-medium">
                         {t("riskWarningTag")}
                       </span>
                     )}

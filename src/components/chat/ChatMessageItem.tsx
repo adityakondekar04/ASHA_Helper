@@ -28,7 +28,7 @@ export function ChatMessageItem({
         return parts.map((part, i) => {
           if (part.startsWith("**") && part.endsWith("**")) {
             return (
-              <strong key={i} className="font-black text-foreground">
+              <strong key={i} className="font-semibold text-foreground">
                 {part.slice(2, -2)}
               </strong>
             );
@@ -42,7 +42,7 @@ export function ChatMessageItem({
       if (numberMatch) {
         return (
           <div key={idx} className="flex items-start gap-2 my-1 pl-1">
-            <span className="grid size-5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary text-xs font-black">
+            <span className="grid size-5 shrink-0 place-items-center rounded-full bg-primary/15 text-primary text-xs font-semibold">
               {numberMatch[1]}
             </span>
             <div className="flex-1 leading-relaxed text-sm sm:text-base">
@@ -69,7 +69,7 @@ export function ChatMessageItem({
       const headingMatch = line.match(/^#{1,3}\s+(.*)/);
       if (headingMatch) {
         return (
-          <h4 key={idx} className="font-black text-base sm:text-lg mt-3 mb-1 text-foreground">
+          <h4 key={idx} className="font-semibold text-base sm:text-lg mt-3 mb-1 text-foreground">
             {headingMatch[1]}
           </h4>
         );
@@ -92,22 +92,22 @@ export function ChatMessageItem({
     >
       {/* Assistant Avatar */}
       {!isUser && (
-        <div className="grid size-9 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs mt-0.5">
+        <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-xs mt-0.5">
           <Stethoscope className="size-4.5" />
         </div>
       )}
 
       {/* Message Bubble Container */}
       <div
-        className={`max-w-[85%] sm:max-w-[78%] rounded-3xl p-3.5 sm:p-4 text-left transition-all ${
+        className={`max-w-[85%] sm:max-w-[78%] rounded-xl p-3.5 sm:p-4 text-left transition-all ${
           isUser
             ? "bg-primary text-primary-foreground rounded-br-xs shadow-xs font-semibold"
-            : "bg-card border-2 border-border text-foreground rounded-bl-xs shadow-[0_2px_0_0_var(--color-border)]"
+            : "bg-card border border-border text-foreground rounded-bl-xs shadow-[0_2px_0_0_var(--color-border)]"
         }`}
       >
         {/* Danger Tag on Assistant response */}
         {!isUser && message.isDanger && (
-          <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-full bg-destructive/15 px-2.5 py-0.5 text-xs font-black text-destructive border border-destructive/30">
+          <div className="mb-2.5 inline-flex items-center gap-1.5 rounded-full bg-destructive/15 px-2.5 py-0.5 text-xs font-semibold text-destructive border border-destructive/30">
             <AlertTriangle className="size-3.5" />
             <span>{t.emergencyCalloutTitle}</span>
           </div>
@@ -120,7 +120,7 @@ export function ChatMessageItem({
 
         {/* Timestamp */}
         <div
-          className={`mt-2 text-[10px] font-semibold text-right ${
+          className={`mt-2 text-xs font-semibold text-right ${
             isUser ? "text-primary-foreground/70" : "text-muted-foreground/80"
           }`}
         >
@@ -130,7 +130,7 @@ export function ChatMessageItem({
 
       {/* User Avatar */}
       {isUser && (
-        <div className="grid size-9 shrink-0 place-items-center rounded-2xl bg-secondary text-secondary-foreground border border-border shadow-2xs mt-0.5">
+        <div className="grid size-9 shrink-0 place-items-center rounded-xl bg-secondary text-secondary-foreground border border-border shadow-2xs mt-0.5">
           <User className="size-4" />
         </div>
       )}

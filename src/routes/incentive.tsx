@@ -150,13 +150,13 @@ function IncentiveTrackerPage() {
       <p className="mb-4 text-base text-muted-foreground">{t("incentiveTrackerSub")}</p>
 
       {/* Tabs Header */}
-      <div className="mb-4 grid grid-cols-3 gap-1 rounded-2xl border-2 border-border bg-card p-1 shadow-[0_2px_0_0_var(--color-border)]">
+      <div className="mb-4 grid grid-cols-3 gap-1 rounded-xl border border-border bg-card p-1 ">
         <button
           type="button"
           onClick={() => setActiveTab("daily")}
-          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-extrabold transition-colors ${
+          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-semibold transition-colors ${
             activeTab === "daily"
-              ? "bg-primary text-primary-foreground shadow-sm"
+              ? "bg-primary text-primary-foreground "
               : "text-muted-foreground hover:bg-secondary/50"
           }`}
         >
@@ -167,9 +167,9 @@ function IncentiveTrackerPage() {
         <button
           type="button"
           onClick={() => setActiveTab("monthly")}
-          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-extrabold transition-colors ${
+          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-semibold transition-colors ${
             activeTab === "monthly"
-              ? "bg-primary text-primary-foreground shadow-sm"
+              ? "bg-primary text-primary-foreground "
               : "text-muted-foreground hover:bg-secondary/50"
           }`}
         >
@@ -180,9 +180,9 @@ function IncentiveTrackerPage() {
         <button
           type="button"
           onClick={() => setActiveTab("history")}
-          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-extrabold transition-colors ${
+          className={`flex items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-base font-semibold transition-colors ${
             activeTab === "history"
-              ? "bg-primary text-primary-foreground shadow-sm"
+              ? "bg-primary text-primary-foreground "
               : "text-muted-foreground hover:bg-secondary/50"
           }`}
         >
@@ -195,7 +195,7 @@ function IncentiveTrackerPage() {
       {activeTab === "daily" && (
         <div className="space-y-4">
           <Card className="space-y-4">
-            <h2 className="text-xl font-extrabold flex items-center gap-2">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
               <Calendar className="size-6 text-primary" />
               {t("tabDailyLog")}
             </h2>
@@ -221,19 +221,19 @@ function IncentiveTrackerPage() {
             </div>
 
             {/* Live calculated incentive banner */}
-            <div className="rounded-2xl border-2 border-primary/30 bg-primary/10 p-4 flex items-center justify-between">
+            <div className="rounded-xl border border-primary/30 bg-primary/10 p-4 flex items-center justify-between">
               <div>
                 <p className="text-sm font-bold text-muted-foreground">{t("todayExpected")}</p>
-                <p className="text-3xl font-extrabold text-primary">₹{todayTotal}</p>
+                <p className="text-3xl font-semibold text-primary">₹{todayTotal}</p>
               </div>
-              <div className="grid size-12 place-items-center rounded-2xl bg-primary text-primary-foreground">
+              <div className="grid size-12 place-items-center rounded-xl bg-primary text-primary-foreground">
                 <IndianRupee className="size-7" />
               </div>
             </div>
 
             {/* Checklist of activities matching rate card */}
             <div className="space-y-3 pt-2">
-              <h3 className="text-lg font-extrabold text-foreground border-b-2 border-border pb-2">
+              <h3 className="text-lg font-semibold text-foreground border-b-2 border-border pb-2">
                 {t("activitiesChecklist")}
               </h3>
 
@@ -245,7 +245,7 @@ function IncentiveTrackerPage() {
                   return (
                     <div
                       key={item.code}
-                      className={`rounded-2xl border-2 p-3 transition-colors ${
+                      className={`rounded-xl border p-3 transition-colors ${
                         count > 0
                           ? "border-primary bg-primary/5"
                           : "border-border bg-card"
@@ -253,7 +253,7 @@ function IncentiveTrackerPage() {
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
                         <div>
-                          <p className="text-base font-bold leading-tight text-foreground">
+                          <p className="text-base font-bold leading-normal text-foreground">
                             {pick(lang, item.activity)}
                           </p>
                           <p className="text-xs text-muted-foreground">
@@ -261,7 +261,7 @@ function IncentiveTrackerPage() {
                           </p>
                         </div>
                         {count > 0 && (
-                          <span className="self-start sm:self-auto rounded-full bg-primary/20 px-3 py-1 text-sm font-extrabold text-primary">
+                          <span className="self-start sm:self-auto rounded-full bg-primary/20 px-3 py-1 text-sm font-semibold text-primary">
                             ₹{itemTotal}
                           </span>
                         )}
@@ -274,7 +274,7 @@ function IncentiveTrackerPage() {
                           onClick={() => handleActivityCountChange(item.code, -1)}
                           disabled={count <= 0}
                           aria-label="Decrease count"
-                          className="flex size-11 items-center justify-center rounded-xl border-2 border-border bg-secondary text-secondary-foreground disabled:opacity-30 disabled:cursor-not-allowed text-xl font-bold active:scale-95"
+                          className="flex size-11 items-center justify-center rounded-xl border border-border bg-secondary text-secondary-foreground disabled:opacity-30 disabled:cursor-not-allowed text-xl font-bold active:scale-95"
                         >
                           <Minus className="size-5" />
                         </button>
@@ -286,14 +286,14 @@ function IncentiveTrackerPage() {
                           value={count === 0 ? "" : count}
                           placeholder="0"
                           onChange={(e) => handleActivityCountInput(item.code, e.target.value)}
-                          className="w-20 text-center rounded-xl border-2 border-border bg-card px-2 py-2 text-xl font-extrabold outline-none focus:border-primary"
+                          className="w-20 text-center rounded-xl border border-border bg-card px-2 py-2 text-xl font-semibold outline-none focus:border-primary"
                         />
 
                         <button
                           type="button"
                           onClick={() => handleActivityCountChange(item.code, 1)}
                           aria-label="Increase count"
-                          className="flex size-11 items-center justify-center rounded-xl border-2 border-primary bg-primary text-primary-foreground text-xl font-bold active:scale-95 shadow-sm"
+                          className="flex size-11 items-center justify-center rounded-xl border border-primary bg-primary text-primary-foreground text-xl font-bold active:scale-95 "
                         >
                           <Plus className="size-5" />
                         </button>
@@ -309,12 +309,12 @@ function IncentiveTrackerPage() {
 
           {/* RECENT DAILY LOGS LIST */}
           <Card>
-            <h3 className="mb-3 text-lg font-extrabold text-foreground">
+            <h3 className="mb-3 text-lg font-semibold text-foreground">
               {t("recentDailyLogs")}
             </h3>
 
             {logs.length === 0 ? (
-              <p className="rounded-2xl bg-secondary px-4 py-6 text-center text-base text-muted-foreground font-semibold">
+              <p className="rounded-xl bg-secondary px-4 py-6 text-center text-base text-muted-foreground font-semibold">
                 {t("noLogsFound")}
               </p>
             ) : (
@@ -331,11 +331,11 @@ function IncentiveTrackerPage() {
                     return (
                       <li
                         key={log.id}
-                        className="rounded-2xl border-2 border-border bg-card p-3 space-y-2"
+                        className="rounded-xl border border-border bg-card p-3 space-y-2"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2">
-                            <span className="font-extrabold text-base text-foreground">
+                            <span className="font-semibold text-base text-foreground">
                               📅 {log.date}
                             </span>
                             {Number(log.householdsVisited) > 0 && (
@@ -345,7 +345,7 @@ function IncentiveTrackerPage() {
                             )}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-lg font-extrabold text-primary">
+                            <span className="text-lg font-semibold text-primary">
                               ₹{log.totalAmount}
                             </span>
                             <button
@@ -399,7 +399,7 @@ function IncentiveTrackerPage() {
                 }
               }}
               disabled={availableMonths.indexOf(selectedMonth) >= availableMonths.length - 1}
-              className="flex size-10 items-center justify-center rounded-xl border-2 border-border bg-secondary text-secondary-foreground disabled:opacity-30"
+              className="flex size-10 items-center justify-center rounded-xl border border-border bg-secondary text-secondary-foreground disabled:opacity-30"
               aria-label="Previous month"
             >
               <ChevronLeft className="size-5" />
@@ -409,7 +409,7 @@ function IncentiveTrackerPage() {
               <span className="text-xs font-bold text-muted-foreground block">
                 {t("selectMonth")}
               </span>
-              <span className="text-xl font-extrabold text-foreground truncate block">
+              <span className="text-xl font-semibold text-foreground truncate block">
                 {formatMonthName(selectedMonth, lang)}
               </span>
             </div>
@@ -423,7 +423,7 @@ function IncentiveTrackerPage() {
                 }
               }}
               disabled={availableMonths.indexOf(selectedMonth) <= 0}
-              className="flex size-10 items-center justify-center rounded-xl border-2 border-border bg-secondary text-secondary-foreground disabled:opacity-30"
+              className="flex size-10 items-center justify-center rounded-xl border border-border bg-secondary text-secondary-foreground disabled:opacity-30"
               aria-label="Next month"
             >
               <ChevronRight className="size-5" />
@@ -432,23 +432,23 @@ function IncentiveTrackerPage() {
 
           {/* Metric Overview Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="rounded-3xl border-2 border-primary/40 bg-primary/10 p-4">
+            <div className="rounded-xl border border-primary/40 bg-primary/10 p-4">
               <p className="text-xs font-bold text-muted-foreground">{t("monthExpectedTotal")}</p>
-              <p className="text-3xl font-extrabold text-primary">
+              <p className="text-3xl font-semibold text-primary">
                 ₹{monthSummary.totalExpected}
               </p>
             </div>
 
-            <div className="rounded-3xl border-2 border-accent/40 bg-accent/10 p-4">
+            <div className="rounded-xl border border-accent/40 bg-accent/10 p-4">
               <p className="text-xs font-bold text-muted-foreground">{t("receivedIncentive")}</p>
-              <p className="text-3xl font-extrabold text-accent">
+              <p className="text-3xl font-semibold text-accent">
                 ₹{monthSummary.totalReceived}
               </p>
             </div>
 
-            <div className="rounded-3xl border-2 border-destructive/40 bg-destructive/10 p-4">
+            <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-4">
               <p className="text-xs font-bold text-muted-foreground">{t("pendingIncentive")}</p>
-              <p className="text-3xl font-extrabold text-destructive">
+              <p className="text-3xl font-semibold text-destructive">
                 ₹{monthSummary.totalPending}
               </p>
             </div>
@@ -457,7 +457,7 @@ function IncentiveTrackerPage() {
           {/* Activity Breakdown & Payment Received Toggles */}
           <Card className="space-y-4">
             <div className="flex items-center justify-between border-b-2 border-border pb-2">
-              <h3 className="text-lg font-extrabold text-foreground">
+              <h3 className="text-lg font-semibold text-foreground">
                 {t("activitiesChecklist")} ({formatMonthName(selectedMonth, lang)})
               </h3>
               {monthSummary.totalHouseholds > 0 && (
@@ -472,7 +472,7 @@ function IncentiveTrackerPage() {
                 return (
                   <div
                     key={act.code}
-                    className={`rounded-2xl border-2 p-3 space-y-2 transition-colors ${
+                    className={`rounded-xl border p-3 space-y-2 transition-colors ${
                       act.isReceived
                         ? "border-accent/40 bg-accent/5"
                         : act.expectedAmount > 0
@@ -482,7 +482,7 @@ function IncentiveTrackerPage() {
                   >
                     <div className="flex items-center justify-between gap-2">
                       <div>
-                        <p className="text-base font-extrabold text-foreground">
+                        <p className="text-base font-semibold text-foreground">
                           {act.activityName}
                         </p>
                         <p className="text-xs text-muted-foreground">
@@ -492,11 +492,11 @@ function IncentiveTrackerPage() {
                       </div>
 
                       <div className="text-right">
-                        <p className="text-lg font-extrabold text-primary">
+                        <p className="text-lg font-semibold text-primary">
                           ₹{act.expectedAmount}
                         </p>
                         <span
-                          className={`inline-flex items-center gap-1 text-xs font-extrabold px-2 py-0.5 rounded-md ${
+                          className={`inline-flex items-center gap-1 text-xs font-semibold px-2 py-0.5 rounded-md ${
                             act.isReceived
                               ? "bg-accent/20 text-accent"
                               : "bg-secondary text-muted-foreground"
@@ -526,9 +526,9 @@ function IncentiveTrackerPage() {
                         onClick={() =>
                           saveIncentivePayment(selectedMonth, act.code, !act.isReceived)
                         }
-                        className={`flex items-center gap-2 rounded-xl border-2 px-3 py-1.5 text-sm font-extrabold transition-all ${
+                        className={`flex items-center gap-2 rounded-xl border px-3 py-1.5 text-sm font-semibold transition-all ${
                           act.isReceived
-                            ? "border-accent bg-accent text-accent-foreground shadow-sm"
+                            ? "border-accent bg-accent text-accent-foreground "
                             : "border-border bg-secondary text-secondary-foreground"
                         }`}
                       >
@@ -555,13 +555,13 @@ function IncentiveTrackerPage() {
       {activeTab === "history" && (
         <div className="space-y-4">
           <Card className="space-y-4">
-            <h2 className="text-xl font-extrabold flex items-center gap-2">
+            <h2 className="text-xl font-semibold flex items-center gap-2">
               <TrendingUp className="size-6 text-primary" />
               {t("monthHistoryTitle")}
             </h2>
 
             {availableMonths.length === 0 ? (
-              <p className="rounded-2xl bg-secondary px-4 py-6 text-center text-base text-muted-foreground font-semibold">
+              <p className="rounded-xl bg-secondary px-4 py-6 text-center text-base text-muted-foreground font-semibold">
                 {t("noLogsFound")}
               </p>
             ) : (
@@ -578,12 +578,12 @@ function IncentiveTrackerPage() {
                   return (
                     <div
                       key={mKey}
-                      className="rounded-2xl border-2 border-border bg-card p-4 space-y-3 shadow-xs"
+                      className="rounded-xl border border-border bg-card p-4 space-y-3 "
                     >
                       {/* Month Header & Totals */}
                       <div className="flex items-center justify-between gap-2 border-b-2 border-border/60 pb-2">
                         <div>
-                          <p className="text-lg font-extrabold text-foreground">
+                          <p className="text-lg font-semibold text-foreground">
                             {formatMonthName(mKey, lang)}
                           </p>
                           {summary.totalHouseholds > 0 && (
@@ -593,7 +593,7 @@ function IncentiveTrackerPage() {
                           )}
                         </div>
                         <div className="text-right">
-                          <p className="text-xl font-extrabold text-primary">
+                          <p className="text-xl font-semibold text-primary">
                             ₹{summary.totalExpected}
                           </p>
                           <p className="text-xs font-bold text-muted-foreground">
@@ -604,7 +604,7 @@ function IncentiveTrackerPage() {
 
                       {/* Visual Bar Representation */}
                       <div className="space-y-1.5">
-                        <div className="flex items-center justify-between text-xs font-extrabold">
+                        <div className="flex items-center justify-between text-xs font-semibold">
                           <span className="text-accent flex items-center gap-1">
                             <CheckCircle2 className="size-3.5" />
                             {t("receivedIncentive")}: ₹{summary.totalReceived}

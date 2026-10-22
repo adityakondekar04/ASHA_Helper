@@ -6,16 +6,16 @@ import { pick, useT, type Tri } from "@/lib/i18n";
 export const Route = createFileRoute("/info/faq")({
   head: () => ({
     meta: [
-      { title: "नेहमीचे प्रश्न — ASHA helper FAQ" },
+      { title: "मदत व कार्यपद्धती — ASHA Helper" },
       {
         name: "description",
         content:
-          "Plain-language answers to common ASHA worker questions about this helper app: where data is saved, working offline, editing entries, and how it relates to official portals.",
+          "Help, daily workflow guide, and plain-language answers to common ASHA worker questions about using the offline helper.",
       },
-      { property: "og:title", content: "नेहमीचे प्रश्न — FAQ" },
+      { property: "og:title", content: "मदत व कार्यपद्धती — Help & FAQ" },
       {
         property: "og:description",
-        content: "Common questions answered simply, in Marathi, Hindi and English.",
+        content: "ASHA daily workflow steps and common questions answered simply.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -23,6 +23,13 @@ export const Route = createFileRoute("/info/faq")({
   }),
   component: FaqPage,
 });
+
+const WORKFLOW_STEPS: Array<{ num: string; titleKey: string; descKey: string }> = [
+  { num: "01", titleKey: "step1Title", descKey: "step1Desc" },
+  { num: "02", titleKey: "step2Title", descKey: "step2Desc" },
+  { num: "03", titleKey: "step3Title", descKey: "step3Desc" },
+  { num: "04", titleKey: "step4Title", descKey: "step4Desc" },
+];
 
 const FAQS: Array<{ q: Tri; a: Tri }> = [
   {
@@ -81,15 +88,61 @@ const FAQS: Array<{ q: Tri; a: Tri }> = [
 
 function FaqPage() {
   const { t, lang } = useT();
+
   return (
-    <AppShell title={t("infoFaq")} backTo="/info">
-      <div className="space-y-3">
-        {FAQS.map((f) => (
-          <Collapse key={f.q[2]} title={pick(lang, f.q)} icon="?">
-            <p className="text-base leading-snug">{pick(lang, f.a)}</p>
-          </Collapse>
-        ))}
-        <p className="py-4 text-center text-sm text-muted-foreground">{t("placeholderNote")}</p>
+    <AppShell title={t("navHelp")} backTo="/" maxWidth="max-w-2xl">
+      <div className="space-y-6">
+        {/* 1. Daily Workflow Guide (Moved from landing page) */}
+        <section className="space-y-3">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-foreground">
+              {t("dailyWorkflow")}
+            </h2>
+            <p className="text-sm text-muted-foreground leading-normal">
+              {t("workflowSub")}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {WORKFLOW_STEPS.map((step) => (
+              <div
+                key={step.num}
+                className="rounded-xl border border-border bg-card p-4 space-y-1.5"
+              >
+                <span className="text-xs font-semibold text-primary/70">{step.num}</span>
+                <h3 className="text-sm font-semibold text-foreground">
+                  {t(step.titleKey as any)}
+                </h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {t(step.descKey as any)}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 2. Frequently Asked Questions */}
+        <section className="space-y-3">
+          <div className="space-y-1">
+            <h2 className="text-lg font-semibold text-foreground">
+              {t("faqSectionTitle")}
+            </h2>
+            <p className="text-sm text-muted-foreground leading-normal">
+              {t("infoFaqSub")}
+            </p>
+          </div>
+
+          <div className="space-y-2.5">
+            {FAQS.map((f) => (
+              <Collapse key={f.q[2]} title={pick(lang, f.q)} icon="?">
+                <p className="text-sm text-foreground leading-relaxed">{pick(lang, f.a)}</p>
+              </Collapse>
+            ))}
+          </div>
+        </section>
+
+        {/* 3. Reassurance Footer Note */}
+        <p className="text-center text-xs text-muted-foreground py-2">{t("privacyNote")}</p>
       </div>
     </AppShell>
   );

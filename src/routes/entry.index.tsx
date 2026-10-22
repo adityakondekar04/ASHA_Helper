@@ -27,35 +27,37 @@ export const Route = createFileRoute("/entry/")({
 function EntryIndex() {
   const { t } = useT();
   return (
-    <AppShell title={t("navEntry")} backTo="/">
-      <h2 className="mb-4 text-xl font-extrabold">{t("entryTitle")}</h2>
-      <div className="grid gap-3">
-        <Choice
-          to="/entry/pregnancy"
-          icon={<HeartPulse className="size-8" />}
-          label={t("pregWoman")}
-          sub={t("pregSub")}
-        />
-        <Choice
-          to="/entry/tb"
-          icon={<Stethoscope className="size-8" />}
-          label={t("tbPatient")}
-          sub={t("tbSub")}
-        />
-        <Choice
-          to="/entry/survey"
-          icon={<Bug className="size-8" />}
-          label={t("survey")}
-          sub={t("surveySub")}
-        />
-        <Choice
-          to="/entry/child"
-          icon={<Baby className="size-8" />}
-          label={t("child")}
-          sub={t("childSub")}
-        />
+    <AppShell title={t("navEntry")} backTo="/" maxWidth="max-w-xl">
+      <div className="space-y-4">
+        <h2 className="text-base font-semibold text-foreground">{t("entryTitle")}</h2>
+        <div className="grid gap-2.5">
+          <Choice
+            to="/entry/pregnancy"
+            icon={<HeartPulse className="size-6" />}
+            label={t("pregWoman")}
+            sub={t("pregSub")}
+          />
+          <Choice
+            to="/entry/tb"
+            icon={<Stethoscope className="size-6" />}
+            label={t("tbPatient")}
+            sub={t("tbSub")}
+          />
+          <Choice
+            to="/entry/survey"
+            icon={<Bug className="size-6" />}
+            label={t("survey")}
+            sub={t("surveySub")}
+          />
+          <Choice
+            to="/entry/child"
+            icon={<Baby className="size-6" />}
+            label={t("child")}
+            sub={t("childSub")}
+          />
+        </div>
+        <p className="pt-2 text-center text-xs text-muted-foreground">{t("privacyNote")}</p>
       </div>
-      <p className="mt-6 text-center text-sm text-muted-foreground">{t("privacyNote")}</p>
     </AppShell>
   );
 }
@@ -74,15 +76,15 @@ function Choice({
   return (
     <Link
       to={to}
-      className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-3xl border-2 border-border bg-card p-5 shadow-[0_3px_0_0_var(--color-border)]"
+      className="flex items-center gap-4 rounded-xl border border-border bg-card p-4 hover:bg-secondary/40 transition-colors"
     >
-      <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
+      <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary">
         {icon}
       </span>
-      <span className="min-w-0">
-        <span className="block truncate text-2xl font-extrabold">{label}</span>
-        <span className="block text-base text-muted-foreground">{sub}</span>
-      </span>
+      <div className="min-w-0">
+        <span className="block truncate text-base font-semibold text-foreground">{label}</span>
+        <span className="block text-xs text-muted-foreground truncate">{sub}</span>
+      </div>
     </Link>
   );
 }

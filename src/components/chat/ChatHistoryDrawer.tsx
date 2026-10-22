@@ -58,7 +58,7 @@ export function ChatHistoryDrawer({
 
     return (
       <div className="space-y-1.5 mb-4">
-        <p className="px-2 text-xs font-black text-muted-foreground uppercase tracking-wider">
+        <p className="px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
           {title}
         </p>
         {list.map((conv) => {
@@ -66,9 +66,9 @@ export function ChatHistoryDrawer({
           return (
             <div
               key={conv.id}
-              className={`group flex items-center justify-between gap-2 rounded-2xl p-2.5 transition-all cursor-pointer ${
+              className={`group flex items-center justify-between gap-2 rounded-xl p-2.5 transition-all cursor-pointer ${
                 isActive
-                  ? "bg-primary text-primary-foreground font-black shadow-xs"
+                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
                   : "bg-background hover:bg-secondary border border-border text-foreground font-semibold"
               }`}
               onClick={() => {
@@ -113,7 +113,7 @@ export function ChatHistoryDrawer({
       <div className="fixed inset-y-0 right-0 z-50 w-full max-w-sm bg-card border-l-2 border-border p-4 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
         {/* Header */}
         <div className="border-b pb-3 mb-3 flex items-center justify-between">
-          <div className="flex items-center gap-2 font-black text-lg text-foreground">
+          <div className="flex items-center gap-2 font-semibold text-lg text-foreground">
             <History className="size-5 text-primary" />
             <span>{t.chatHistory}</span>
           </div>
@@ -134,7 +134,7 @@ export function ChatHistoryDrawer({
             onNewChat();
             onClose();
           }}
-          className="mb-4 w-full rounded-2xl bg-primary py-2.5 px-4 text-sm font-black text-primary-foreground shadow-xs hover:bg-primary/95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+          className="mb-4 w-full rounded-xl bg-primary py-2.5 px-4 text-sm font-semibold text-primary-foreground shadow-xs hover:bg-primary/95 transition-all flex items-center justify-center gap-2 cursor-pointer"
         >
           <PlusCircle className="size-4" />
           <span>{t.newChat}</span>

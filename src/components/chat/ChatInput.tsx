@@ -55,7 +55,7 @@ export function ChatInput({
           <button
             type="button"
             onClick={onToggleSuggestions}
-            className={`grid size-11 sm:size-12 shrink-0 place-items-center rounded-2xl border-2 transition-all cursor-pointer ${
+            className={`grid size-11 sm:size-12 shrink-0 place-items-center rounded-xl border transition-all cursor-pointer ${
               suggestionsVisible
                 ? "border-primary bg-primary text-primary-foreground shadow-xs"
                 : "border-border bg-background text-muted-foreground hover:border-primary/50 hover:text-foreground"
@@ -76,7 +76,7 @@ export function ChatInput({
               onKeyDown={handleKeyDown}
               placeholder={t.inputPlaceholder}
               disabled={disabled}
-              className="w-full resize-none rounded-2xl border-2 border-border bg-background px-4 py-3 text-sm sm:text-base font-semibold text-foreground placeholder:text-muted-foreground/70 outline-none focus:border-primary max-h-32 leading-relaxed"
+              className="w-full resize-none rounded-xl border border-border bg-background px-4 py-3 text-sm sm:text-base font-semibold text-foreground placeholder:text-muted-foreground/70 outline-none focus:border-primary max-h-32 leading-relaxed"
             />
           </div>
 
@@ -86,7 +86,7 @@ export function ChatInput({
             onClick={() => {
               alert(t.voiceComingSoon);
             }}
-            className="grid size-11 sm:size-12 shrink-0 place-items-center rounded-2xl border-2 border-border bg-background text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all cursor-pointer"
+            className="grid size-11 sm:size-12 shrink-0 place-items-center rounded-xl border border-border bg-background text-muted-foreground hover:text-foreground hover:border-primary/40 transition-all cursor-pointer"
             title={t.voiceComingSoon}
             aria-label={t.voiceComingSoon}
           >
@@ -97,7 +97,7 @@ export function ChatInput({
           <button
             type="submit"
             disabled={disabled || !input.trim()}
-            className="grid size-11 sm:size-12 shrink-0 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="grid size-11 sm:size-12 shrink-0 place-items-center rounded-xl bg-primary text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             title={t.send}
             aria-label={t.send}
           >
@@ -106,7 +106,7 @@ export function ChatInput({
         </form>
 
         {/* Privacy & Safety Footnote */}
-        <p className="text-center text-[11px] font-semibold text-muted-foreground flex items-center justify-center gap-1.5 px-2">
+        <p className="text-center text-xs font-semibold text-muted-foreground flex items-center justify-center gap-1.5 px-2">
           <ShieldCheck className="size-3.5 text-accent shrink-0" />
           <span className="truncate">{t.privacyReminder}</span>
         </p>

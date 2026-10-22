@@ -17,7 +17,7 @@ import {
   UserCheck,
   UserPlus,
 } from "lucide-react";
-import { LanguageSwitch } from "@/components/AppShell";
+import { AppShell } from "@/components/AppShell";
 import { Card } from "@/components/ui/form-kit";
 import { useT } from "@/lib/i18n";
 import { useAuth, type UserRole } from "@/lib/auth";
@@ -142,35 +142,14 @@ function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-[17px] text-foreground flex flex-col justify-between">
-      {/* Top Header */}
-      <header className="border-b-2 border-border bg-card/90 backdrop-blur sticky top-0 z-10 px-4 py-3">
-        <div className="mx-auto flex max-w-md items-center justify-between">
-          <Link to="/" className="flex items-center gap-2.5">
-            <span className="grid size-10 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-xs">
-              <Stethoscope className="size-5" />
-            </span>
-            <div>
-              <span className="block text-lg font-black leading-tight tracking-tight">
-                {t("appName")}
-              </span>
-              <span className="block text-xs font-semibold text-muted-foreground">
-                {t("ruralHealthMission")}
-              </span>
-            </div>
-          </Link>
-          <LanguageSwitch />
-        </div>
-      </header>
-
-      {/* Main Container */}
-      <main className="mx-auto w-full max-w-md px-4 py-6 flex-1">
+    <AppShell maxWidth="max-w-md">
+      <div className="w-full py-4 space-y-4">
         {/* Title */}
         <div className="mb-6 text-center">
-          <div className="mx-auto mb-3 grid size-16 place-items-center rounded-3xl bg-primary/15 text-primary">
+          <div className="mx-auto mb-3 grid size-16 place-items-center rounded-xl bg-primary/15 text-primary">
             <UserPlus className="size-8" />
           </div>
-          <h1 className="text-2xl font-black text-foreground">{t("signupHeading")}</h1>
+          <h1 className="text-2xl font-semibold text-foreground">{t("signupHeading")}</h1>
           <p className="mt-1 text-sm text-muted-foreground font-medium">{t("signupSubtitle")}</p>
           <div className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-bold text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <span className="size-2 rounded-full bg-emerald-500 animate-pulse" />
@@ -179,11 +158,11 @@ function SignupPage() {
         </div>
 
         {success ? (
-          <Card className="text-center py-10 shadow-[0_4px_0_0_var(--color-border)]">
+          <Card className="text-center py-10 ">
             <div className="mx-auto mb-4 grid size-16 place-items-center rounded-full bg-accent/20 text-accent">
               <CheckCircle2 className="size-10" />
             </div>
-            <h2 className="text-2xl font-black text-foreground">{t("signupSuccess")}</h2>
+            <h2 className="text-2xl font-semibold text-foreground">{t("signupSuccess")}</h2>
             <p className="mt-2 text-base text-muted-foreground">
               {t("welcomeUser")}, {fullName}!
             </p>
@@ -192,9 +171,9 @@ function SignupPage() {
             </p>
           </Card>
         ) : (
-          <Card className="mb-5 shadow-[0_4px_0_0_var(--color-border)]">
+          <Card className="mb-5 ">
             {error && (
-              <div className="mb-4 rounded-2xl bg-destructive/15 p-3 text-sm font-bold text-destructive">
+              <div className="mb-4 rounded-xl bg-destructive/15 p-3 text-sm font-bold text-destructive">
                 {error}
               </div>
             )}
@@ -209,9 +188,9 @@ function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setRole("asha")}
-                    className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    className={`rounded-xl border p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       role === "asha"
-                        ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                        ? "border-primary bg-primary/10 text-primary font-semibold "
                         : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
                     }`}
                   >
@@ -221,9 +200,9 @@ function SignupPage() {
                   <button
                     type="button"
                     onClick={() => setRole("facilitator")}
-                    className={`rounded-2xl border-2 p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    className={`rounded-xl border p-3 text-center transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                       role === "facilitator"
-                        ? "border-primary bg-primary/10 text-primary font-black shadow-xs"
+                        ? "border-primary bg-primary/10 text-primary font-semibold "
                         : "border-border bg-card text-muted-foreground font-semibold hover:text-foreground"
                     }`}
                   >
@@ -246,7 +225,7 @@ function SignupPage() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder={t("fullName")}
-                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                    className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
               </div>
@@ -266,7 +245,7 @@ function SignupPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
                     placeholder={t("enterMobile")}
-                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                    className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
               </div>
@@ -282,7 +261,7 @@ function SignupPage() {
                     <select
                       value={district}
                       onChange={(e) => setDistrict(e.target.value)}
-                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary appearance-none cursor-pointer"
+                      className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary appearance-none cursor-pointer"
                     >
                       {MAHARASHTRA_DISTRICTS.map((d) => (
                         <option key={d} value={d}>
@@ -300,7 +279,7 @@ function SignupPage() {
                     value={taluka}
                     onChange={(e) => setTaluka(e.target.value)}
                     placeholder="कराड / Karad"
-                    className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
+                    className="w-full rounded-xl border border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
               </div>
@@ -318,7 +297,7 @@ function SignupPage() {
                       value={phc}
                       onChange={(e) => setPhc(e.target.value)}
                       placeholder="मसूर PHC"
-                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                      className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
                 </div>
@@ -334,7 +313,7 @@ function SignupPage() {
                       value={subCenter}
                       onChange={(e) => setSubCenter(e.target.value)}
                       placeholder="शिरोली उपकेंद्र"
-                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                      className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
                 </div>
@@ -349,7 +328,7 @@ function SignupPage() {
                     value={village}
                     onChange={(e) => setVillage(e.target.value)}
                     placeholder="शिरोली / Shiroli"
-                    className="w-full rounded-2xl border-2 border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
+                    className="w-full rounded-xl border border-border bg-background py-3 px-4 text-base font-bold outline-none focus:border-primary"
                   />
                 </div>
 
@@ -364,7 +343,7 @@ function SignupPage() {
                       value={ashaId}
                       onChange={(e) => setAshaId(e.target.value)}
                       placeholder="ASHA-MH-0421"
-                      className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
+                      className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary"
                     />
                   </div>
                 </div>
@@ -383,7 +362,7 @@ function SignupPage() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder={t("enterPassword")}
-                    className="w-full rounded-2xl border-2 border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary tracking-wider"
+                    className="w-full rounded-xl border border-border bg-background py-3 pl-12 pr-4 text-base font-bold outline-none focus:border-primary tracking-wider"
                   />
                 </div>
               </div>
@@ -403,7 +382,7 @@ function SignupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full rounded-2xl bg-primary py-3.5 text-center text-lg font-black text-primary-foreground shadow-[0_3px_0_0_oklch(0.42_0.14_38)] hover:bg-primary/95 transition-all active:translate-y-0.5 mt-2 cursor-pointer disabled:opacity-60"
+                className="w-full rounded-xl bg-primary py-3.5 text-center text-lg font-semibold text-primary-foreground  hover:bg-primary/95 transition-all active:translate-y-0.5 mt-2 cursor-pointer disabled:opacity-60"
               >
                 {loading ? "नोंदणी होत आहे..." : t("createAccountBtn")}
               </button>
@@ -423,10 +402,10 @@ function SignupPage() {
         </div>
 
         {/* Link to Login */}
-        <div className="rounded-2xl border-2 border-border bg-card p-4 text-center">
+        <div className="rounded-xl border border-border bg-card p-4 text-center">
           <p className="text-sm font-semibold text-muted-foreground">
             {t("alreadyHaveAccount")}{" "}
-            <Link to="/login" className="font-extrabold text-primary hover:underline">
+            <Link to="/login" className="font-semibold text-primary hover:underline">
               {t("loginNow")}
             </Link>
           </p>
@@ -437,7 +416,7 @@ function SignupPage() {
           <ShieldCheck className="size-4 text-accent" />
           {t("privacyNote")}
         </p>
-      </main>
-    </div>
+            </div>
+    </AppShell>
   );
 }

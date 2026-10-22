@@ -30,14 +30,14 @@ export function SuggestedQuestions({
               key={cat.id}
               type="button"
               onClick={() => setSelectedCategory(cat.id)}
-              className={`shrink-0 rounded-2xl px-3 py-1.5 text-xs sm:text-sm font-black transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs ${
+              className={`shrink-0 rounded-xl px-3 py-1.5 text-xs sm:text-sm font-semibold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs ${
                 isSelected
                   ? isDanger
                     ? "bg-destructive text-destructive-foreground shadow-xs"
                     : "bg-primary text-primary-foreground shadow-xs"
                   : isDanger
-                    ? "border-2 border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20"
-                    : "border-2 border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/40"
+                    ? "border border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/20"
+                    : "border border-border bg-card text-muted-foreground hover:text-foreground hover:border-primary/40"
               }`}
             >
               <span>{cat.icon}</span>
@@ -54,7 +54,7 @@ export function SuggestedQuestions({
             key={i}
             type="button"
             onClick={() => onSelectQuestion(q)}
-            className="rounded-2xl border-2 border-border bg-card p-3 text-left transition-all hover:border-primary hover:bg-primary/5 active:scale-[0.99] flex items-center justify-between gap-2.5 cursor-pointer shadow-[0_2px_0_0_var(--color-border)] group"
+            className="rounded-xl border border-border bg-card p-3 text-left transition-all hover:border-primary hover:bg-primary/5 active:scale-[0.99] flex items-center justify-between gap-2.5 cursor-pointer shadow-[0_2px_0_0_var(--color-border)] group"
           >
             <span className="text-xs sm:text-sm font-bold text-foreground leading-snug">
               {q}
