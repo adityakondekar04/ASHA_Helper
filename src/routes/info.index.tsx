@@ -1,5 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BookOpen, HelpCircle, IndianRupee, ListChecks, Phone } from "lucide-react";
+import {
+  Baby,
+  BookOpen,
+  HeartPulse,
+  IndianRupee,
+  ListChecks,
+  Phone,
+  ShieldCheck,
+  Stethoscope,
+} from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { Card } from "@/components/ui/form-kit";
 import { useT } from "@/lib/i18n";
@@ -7,16 +16,16 @@ import { useT } from "@/lib/i18n";
 export const Route = createFileRoute("/info/")({
   head: () => ({
     meta: [
-      { title: "माहिती केंद्र — ASHA scheme, program guides and incentives" },
+      { title: "साधने व माहिती केंद्र — ASHA Helper" },
       {
         name: "description",
         content:
-          "Read-only reference for ASHA workers: scheme roles and honorarium, program checklists, incentive rate card and plain-language FAQs in Marathi, Hindi and English.",
+          "ASHA scheme reference: role guides, program checklists, honorarium rate card, and system features.",
       },
-      { property: "og:title", content: "माहिती केंद्र — ASHA Information Hub" },
+      { property: "og:title", content: "साधने व माहिती केंद्र — ASHA Helper" },
       {
         property: "og:description",
-        content: "Scheme overview, program guides, incentive rate card and FAQs — works offline.",
+        content: "Scheme overview, program guides, incentive rate card, and features overview.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -26,76 +35,143 @@ export const Route = createFileRoute("/info/")({
 });
 
 function InfoIndex() {
-  const { t } = useT();
-  return (
-    <AppShell title={t("navInfo")} backTo="/">
-      <p className="mb-4 text-base text-muted-foreground">{t("infoSub")}</p>
-      <div className="grid gap-3">
-        <Tile
-          to="/info/scheme"
-          icon={<BookOpen className="size-7" />}
-          label={t("infoScheme")}
-          sub={t("infoSchemeSub")}
-        />
-        <Tile
-          to="/info/programs"
-          icon={<ListChecks className="size-7" />}
-          label={t("infoPrograms")}
-          sub={t("infoProgramsSub")}
-        />
-        <Tile
-          to="/info/incentives"
-          icon={<IndianRupee className="size-7" />}
-          label={t("infoRates")}
-          sub={t("infoRatesSub")}
-        />
-        <Tile
-          to="/info/faq"
-          icon={<HelpCircle className="size-7" />}
-          label={t("infoFaq")}
-          sub={t("infoFaqSub")}
-        />
-      </div>
+  const { t, lang } = useT();
 
-      <Card className="mt-4 space-y-2">
-        <h2 className="flex items-center gap-2 text-lg font-extrabold">
-          <Phone className="size-5 shrink-0 text-primary" /> {t("infoEmergency")}
-        </h2>
-        <ul className="space-y-1 text-base">
-          <li>प्राथमिक आरोग्य केंद्र (PHC): ______________</li>
-          <li>ग्रामीण रुग्णालय / CHC: ______________</li>
-          <li>रुग्णवाहिका / Ambulance: 108</li>
-          <li>माता-बाल हेल्पलाइन: 104</li>
-        </ul>
-        <p className="text-sm text-muted-foreground">{t("placeholderNote")}</p>
-      </Card>
+  return (
+    <AppShell title={t("navResources")} backTo="/" maxWidth="max-w-2xl">
+      <div className="space-y-6">
+        <p className="text-sm text-muted-foreground leading-normal">
+          {lang === "en"
+            ? "Reference guides, honorarium rate cards, and helper features for daily fieldwork."
+            : lang === "hi"
+              ? "दैनिक फील्ड कार्य के लिए संदर्भ मार्गदर्शिका, मानदेय दर सूची और सुविधाएँ।"
+              : "दैनिक फील्ड कामासाठी संदर्भ मार्गदर्शक, मानधन दर पत्रक आणि सुविधांची माहिती."}
+        </p>
+
+        {/* 1. Info Center (Scheme & Program Checklists) */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            {t("infoTitle")}
+          </h2>
+          <div className="grid gap-2.5">
+            <ResourceCard
+              to="/info/scheme"
+              icon={<BookOpen className="size-5 text-primary" />}
+              title={t("infoScheme")}
+              desc={t("infoSchemeSub")}
+            />
+            <ResourceCard
+              to="/info/programs"
+              icon={<ListChecks className="size-5 text-primary" />}
+              title={t("infoPrograms")}
+              desc={t("infoProgramsSub")}
+            />
+          </div>
+        </section>
+
+        {/* 2. Honorarium Notes & Rate Card */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            {lang === "en" ? "Honorarium & incentives" : lang === "hi" ? "मानदेय व प्रोत्साहन" : "मानधन व प्रोत्साहन"}
+          </h2>
+          <div className="grid gap-2.5">
+            <ResourceCard
+              to="/info/incentives"
+              icon={<IndianRupee className="size-5 text-primary" />}
+              title={t("infoRates")}
+              desc={t("infoRatesSub")}
+            />
+            <ResourceCard
+              to="/incentive"
+              icon={<IndianRupee className="size-5 text-accent" />}
+              title={t("navIncentive")}
+              desc={t("incentiveTrackerSub")}
+            />
+          </div>
+        </section>
+
+        {/* 3. Features Overview (Moved from landing page) */}
+        <section className="space-y-3">
+          <h2 className="text-lg font-semibold text-foreground">
+            {lang === "en" ? "Features overview" : lang === "hi" ? "सुविधाओं का सारांश" : "वैशिष्ट्ये सारांश"}
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+              <div className="flex items-center gap-2 text-primary">
+                <HeartPulse className="size-4 shrink-0" />
+                <h3 className="text-sm font-semibold text-foreground">{t("tabMch")}</h3>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{t("mchDesc")}</p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+              <div className="flex items-center gap-2 text-primary">
+                <Baby className="size-4 shrink-0" />
+                <h3 className="text-sm font-semibold text-foreground">{t("tabChild")}</h3>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{t("childFeatureDesc")}</p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+              <div className="flex items-center gap-2 text-primary">
+                <Stethoscope className="size-4 shrink-0" />
+                <h3 className="text-sm font-semibold text-foreground">{t("tabTb")}</h3>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{t("tbFeatureDesc")}</p>
+            </div>
+
+            <div className="rounded-xl border border-border bg-card p-4 space-y-1">
+              <div className="flex items-center gap-2 text-primary">
+                <ShieldCheck className="size-4 shrink-0" />
+                <h3 className="text-sm font-semibold text-foreground">{t("savedLocally")}</h3>
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">{t("fullOfflineDesc")}</p>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Emergency Contacts */}
+        <Card className="space-y-2.5">
+          <h2 className="flex items-center gap-2 text-base font-semibold text-foreground">
+            <Phone className="size-4 text-primary shrink-0" />
+            <span>{t("infoEmergency")}</span>
+          </h2>
+          <ul className="space-y-1 text-sm text-foreground">
+            <li>प्राथमिक आरोग्य केंद्र (PHC): ______________</li>
+            <li>ग्रामीण रुग्णालय / CHC: ______________</li>
+            <li>रुग्णवाहिका / Ambulance: 108</li>
+            <li>माता-बाल हेल्पलाइन: 104</li>
+          </ul>
+          <p className="text-xs text-muted-foreground">{t("placeholderNote")}</p>
+        </Card>
+      </div>
     </AppShell>
   );
 }
 
-function Tile({
+function ResourceCard({
   to,
   icon,
-  label,
-  sub,
+  title,
+  desc,
 }: {
   to: string;
   icon: React.ReactNode;
-  label: string;
-  sub: string;
+  title: string;
+  desc: string;
 }) {
   return (
     <Link
       to={to}
-      className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-4 rounded-3xl border-2 border-border bg-card p-4 shadow-[0_3px_0_0_var(--color-border)]"
+      className="flex items-center gap-3.5 rounded-xl border border-border bg-card p-3.5 hover:bg-secondary/40 transition-colors"
     >
-      <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
+      <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-primary/10">
         {icon}
       </span>
-      <span className="min-w-0">
-        <span className="block truncate text-xl font-extrabold">{label}</span>
-        <span className="block text-base text-muted-foreground">{sub}</span>
-      </span>
+      <div className="min-w-0">
+        <h3 className="text-sm font-semibold text-foreground truncate">{title}</h3>
+        <p className="text-xs text-muted-foreground truncate">{desc}</p>
+      </div>
     </Link>
   );
 }

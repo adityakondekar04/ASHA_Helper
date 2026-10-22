@@ -19,6 +19,7 @@
  */
 
 @theme inline {
+  --font-sans: "Inter", "Noto Sans Devanagari", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -62,7 +63,7 @@
 }
 
 :root {
-  --radius: 1rem;
+  --radius: 0.75rem;
   /* Warm, human palette: sun-baked cream, terracotta, deep leaf green. */
   --background: oklch(0.978 0.018 84);
   --foreground: oklch(0.26 0.035 55);
@@ -97,7 +98,6 @@
   --sidebar-border: oklch(0.89 0.03 80);
   --sidebar-ring: oklch(0.56 0.16 38);
 }
-
 
 .dark {
   --background: oklch(0.129 0.042 264.695);
@@ -140,9 +140,19 @@
   }
 
   body {
-    font-family:
-      "Baloo 2", "Noto Sans Devanagari", system-ui, sans-serif;
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 400;
+    letter-spacing: 0;
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0;
   }
 }

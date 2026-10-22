@@ -38,6 +38,11 @@ const DICT: Dict = {
   statMothers: ["गरोदर माता", "गर्भवती माता", "Pregnant mothers"],
   statChildren: ["बालके", "बच्चे", "Children"],
 
+  navHome: ["मुख्य", "होम", "Home"],
+  navDailyRegister: ["दैनिक वही", "दैनिक डायरी", "Daily register"],
+  navResources: ["साधने", "संसाधन", "Resources"],
+  navHelp: ["मदत", "मदद", "Help"],
+  newEntry: ["नवीन नोंद", "नई प्रविष्टि", "New entry"],
   navInfo: ["माहिती केंद्र", "जानकारी केंद्र", "Information Hub"],
   navEntry: ["नोंद करा", "प्रविष्टि करें", "Data Entry"],
   navList: ["माझे लाभार्थी", "मेरे लाभार्थी", "My Beneficiaries"],

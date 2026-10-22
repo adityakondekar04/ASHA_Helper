@@ -13,15 +13,15 @@ export function Field({
 }) {
   return (
     <label className="block">
-      <span className="mb-1.5 block text-base font-bold text-foreground">{label}</span>
+      <span className="mb-1.5 block text-sm font-medium text-foreground">{label}</span>
       {children}
-      {hint && <span className="mt-1 block text-sm text-muted-foreground">{hint}</span>}
+      {hint && <span className="mt-1 block text-xs text-muted-foreground">{hint}</span>}
     </label>
   );
 }
 
 const base =
-  "w-full rounded-2xl border-2 border-border bg-card px-4 py-3 text-lg text-foreground outline-none focus:border-primary";
+  "w-full rounded-xl border border-border bg-card px-3.5 py-2.5 text-base text-foreground outline-none focus:border-primary transition-colors";
 
 export function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={`${base} ${props.className ?? ""}`} />;
@@ -34,7 +34,7 @@ export function Select(props: React.SelectHTMLAttributes<HTMLSelectElement>) {
 export function Card({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <section
-      className={`rounded-3xl border-2 border-border bg-card p-4 shadow-[0_2px_0_0_var(--color-border)] ${className}`}
+      className={`rounded-xl border border-border bg-card p-5 ${className}`}
     >
       {children}
     </section>
@@ -61,16 +61,16 @@ export function BigToggle({
       type="button"
       onClick={() => onChange(!checked)}
       aria-pressed={checked}
-      className={`flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-3 text-left text-lg font-bold ${
+      className={`flex w-full items-center gap-3 rounded-xl border px-3.5 py-2.5 text-left text-base font-medium transition-colors ${
         checked ? on : "border-border bg-card text-muted-foreground"
       }`}
     >
       <span
-        className={`grid size-7 shrink-0 place-items-center rounded-lg border-2 ${
+        className={`grid size-5 shrink-0 place-items-center rounded border ${
           checked ? "border-current bg-current text-card" : "border-border"
         }`}
       >
-        {checked && <span className="text-sm text-card">✓</span>}
+        {checked && <span className="text-xs text-card">✓</span>}
       </span>
       <span className="min-w-0">{label}</span>
     </button>
@@ -81,15 +81,15 @@ export function SaveBar({ savedAt, onSave }: { savedAt: number | null; onSave: (
   const { t } = useT();
   return (
     <div className="space-y-2 pb-4">
-      <p className="text-center text-base font-bold text-accent">
+      <p className="text-center text-sm font-medium text-accent">
         {savedAt ? `✓ ${t("savedLocally")}` : t("autoSaving")}
       </p>
       <button
         type="button"
         onClick={onSave}
-        className="flex w-full items-center justify-center gap-2 rounded-3xl bg-primary px-4 py-4 text-xl font-extrabold text-primary-foreground shadow-[0_4px_0_0_var(--color-border)]"
+        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-base font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
       >
-        <Check className="size-6" /> {t("save")}
+        <Check className="size-5" /> {t("save")}
       </button>
     </div>
   );
